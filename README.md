@@ -1,6 +1,6 @@
-# smart_parking_solutions
+# flutter_app
 
-A new Flutter project.
+A new Flutter application.
 
 ## Getting Started
 

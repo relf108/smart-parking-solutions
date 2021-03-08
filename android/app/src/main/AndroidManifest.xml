@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.smart_parking_solutions">
+    package="com.example.flutter_app">
    <application
-        android:label="smart_parking_solutions"
+        android:label="flutter_app"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
