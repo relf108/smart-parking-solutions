@@ -8,7 +8,7 @@
 .buildlog/
 .history
 .svn/
-lib/credentials
+lib/credentials.dart
 
 # IntelliJ related
 *.iml
