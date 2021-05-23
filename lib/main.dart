@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:smart_parking_solutions/views/sign_in_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:smart_parking_solutions/credentials.dart';
 
@@ -57,9 +58,24 @@ class _HomePageState extends State<HomePage> {
           //play with this
           children: <Widget>[
             ElevatedButton(
+                onPressed: () => {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return SignInView();
+                      }))
+                    },
+                child: Text('Sign in')),
+            Spacer(
+              flex: 1,
+            ),
+            ElevatedButton(
                 onPressed: () async => {await _launchURL()},
-                child: Text('Sign in with google')),
-            Text('fjdskal;')
+                child: Row(
+                  children: <Widget>[
+                    Image.asset('assets/google_logo.jpg'),
+                    Text('Sign up with google'),
+                  ],
+                ))
           ],
         ),
       ),

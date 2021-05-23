@@ -55,6 +55,7 @@ assets:
   - resources/smart_parking_icon.png
   - resources/wifi-symbol-transparent-6-white.png
   - resources/wifi-symbol-transparent-6.png
+  - resources/google_logo.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
