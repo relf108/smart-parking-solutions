@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:smart_parking_solutions/credentials.dart';
 
+//main method commenting
 void main() {
   runApp(SmartParkingSolutions());
 }
@@ -57,7 +58,8 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             ElevatedButton(
                 onPressed: () async => {await _launchURL()},
-                child: Text('Sign in with google'))
+                child: Text('Sign in with google')),
+            Text('fjdskal;')
           ],
         ),
       ),
