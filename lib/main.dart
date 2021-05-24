@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             ElevatedButton(
                 onPressed: () => {
-                      Navigator.push(context,
+                      Navigator.push<MaterialPageRoute>(context,
                           MaterialPageRoute(builder: (context) {
                         return SignInView();
                       }))
@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () async => {await _launchURL()},
                 child: Row(
                   children: <Widget>[
-                    Image.asset('assets/google_logo.jpg'),
+                    Image.asset('assets/google_logo.jpg', scale: 20,),
                     Text('Sign up with google'),
                   ],
                 ))

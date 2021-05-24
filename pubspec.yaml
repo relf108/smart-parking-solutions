@@ -50,12 +50,13 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
-assets:
-  - resources/smart_parking_icon.ico
-  - resources/smart_parking_icon.png
-  - resources/wifi-symbol-transparent-6-white.png
-  - resources/wifi-symbol-transparent-6.png
-  - resources/google_logo.jpg
+  assets:
+    - assets/smart_parking_icon.ico
+    - assets/smart_parking_icon.png
+    - assets/wifi-symbol-transparent-6-white.png
+    - assets/wifi-symbol-transparent-6.png
+    - assets/google_logo.jpg
+    - assets
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
