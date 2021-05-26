@@ -53,8 +53,8 @@ flutter:
   assets:
     - assets/smart_parking_icon.ico
     - assets/smart_parking_icon.png
-    - assets/wifi-symbol-transparent-6-white.png
-    - assets/wifi-symbol-transparent-6.png
+    - assets/wifi_symbol_transparent_6_white.png
+    - assets/wifi_symbol_transparent_6.png
     - assets/google_logo.jpg
     - assets
 
