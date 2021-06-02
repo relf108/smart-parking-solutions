@@ -15,7 +15,7 @@ class _SignedInView extends State<SignedInView> {
   void initState() {
 
     super.initState();
-    _controller =  new TextEditingController();
+    _controller =  TextEditingController();
 
   }
 

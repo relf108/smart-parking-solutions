@@ -6,7 +6,7 @@ class SignInView extends StatefulWidget {
 }
 
 class _SignInViewState extends State<SignInView> {
-  List<String> _searchHistory = [];
+  final List<String> _searchHistory = [];
 
   @override
   Widget build(BuildContext context) {
