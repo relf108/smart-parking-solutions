@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:smart_parking_solutions/views/sign_in_view.dart';
+import 'package:smart_parking_solutions/views/signed_in_view.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 import 'package:smart_parking_solutions/credentials.dart';
 
@@ -15,9 +17,20 @@ class SmartParkingSolutions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Smart Parking Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
+        backgroundColor: Colors.red,
+        scaffoldBackgroundColor: Colors.red,
+        textTheme: TextTheme(
+          bodyText1: TextStyle(),
+          bodyText2: TextStyle()
+        ).apply(
+          bodyColor: Colors.white,
+          displayColor: Colors.white,
+
+        )
+
       ),
       home: HomePage(title: 'Flutter Demo Home Page'),
     );
@@ -37,7 +50,7 @@ class _HomePageState extends State<HomePage> {
   Future<void> _launchURL() async {
     const localhost = 'localhost';
     //const localhost = '10.0.2.2';
-    const url =
+    final url =
         'https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.profile&response_type=code&redirect_uri=http://$localhost:8888/authUser&client_id=${Credentials.clientID}';
     if (Platform.isAndroid || Platform.isIOS) {
       await launch(url);
@@ -48,35 +61,60 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          //play with this
-          children: <Widget>[
-            ElevatedButton(
-                onPressed: () => {
-                      Navigator.push<MaterialPageRoute>(context,
-                          MaterialPageRoute(builder: (context) {
-                        return SignInView();
-                      }))
-                    },
-                child: Text('Sign in')),
-            Spacer(
-              flex: 1,
-            ),
-            ElevatedButton(
-                onPressed: () async => {await _launchURL()},
-                child: Row(
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(widget.title),
+              ),
+              body: Center(
+                child: Column(
+
+                  mainAxisAlignment: MainAxisAlignment.center,
+
+                  //play with this
                   children: <Widget>[
-                    Image.asset('assets/google_logo.jpg', scale: 20,),
-                    Text('Sign up with google'),
+                    Image.asset(
+                        'assets/smart_parking_logo.png',
+                      fit: BoxFit.fitWidth,
+                    ),
+                    ElevatedButton(
+                        onPressed: () => {
+                              Navigator.push<MaterialPageRoute>(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return SignInView();
+                              }))
+                            },
+                        child: Text('Sign in')),
+                    ElevatedButton(
+                        onPressed: () => {
+                          Navigator.push<MaterialPageRoute>(context,
+                              MaterialPageRoute(builder: (context) {
+                                return SignedInView();
+                              }))
+                        },
+                        child: Text('Developer Sign in Bypass')),
+
+                    ElevatedButton(
+                        onPressed: () async => {await _launchURL()},
+                        child: Row(
+                          children: <Widget>[
+                            Image.asset('assets/google_logo.jpg', scale: 20,),
+                            Text('Sign up with google'),
+                          ],
+                        )),
+                    Spacer(
+                      flex: 1,
+                    ),
                   ],
-                ))
-          ],
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );

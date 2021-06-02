@@ -6,13 +6,18 @@ class SignInView extends StatefulWidget {
 }
 
 class _SignInViewState extends State<SignInView> {
+  List<String> _searchHistory = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Center(
+        
         child: Column(
           children: <Widget>[
-            Text('TODO')
+            Text('Test' ),
+            Text('TODO'),
           ],
         ),
       ),
