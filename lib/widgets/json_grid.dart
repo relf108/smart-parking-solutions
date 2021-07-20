@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class JsonGrid extends StatelessWidget {
   Map? jsonObject;
-  JsonGrid({required jsonObject});
+  JsonGrid({required Map jsonObject});
 
   @override
   Widget build(BuildContext context) {
