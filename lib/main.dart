@@ -2,10 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:smart_parking_solutions/views/sign_in_view.dart';
-import 'package:smart_parking_solutions/views/signed_in_view.dart';
+import 'package:smart_parking_solutions/views/search_spaces.dart';
+import 'package:smart_parking_solutions/widgets/json_grid.dart';
+import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 
 import 'package:url_launcher/url_launcher.dart';
-import 'package:smart_parking_solutions/credentials.dart';
+// ignore: implementation_imports
+import 'package:smart_parking_solutions_common/src/credentials.dart';
 
 //main method commenting
 void main() {
@@ -19,26 +22,21 @@ class SmartParkingSolutions extends StatelessWidget {
     return MaterialApp(
       title: 'Smart Parking Demo',
       theme: ThemeData(
-        primarySwatch: Colors.red,
-        backgroundColor: Colors.red,
-        scaffoldBackgroundColor: Colors.red,
-        textTheme: TextTheme(
-          bodyText1: TextStyle(),
-          bodyText2: TextStyle()
-        ).apply(
-          bodyColor: Colors.white,
-          displayColor: Colors.white,
-
-        )
-
-      ),
+          primarySwatch: Colors.red,
+          backgroundColor: Colors.red,
+          scaffoldBackgroundColor: Colors.red,
+          textTheme:
+              TextTheme(bodyText1: TextStyle(), bodyText2: TextStyle()).apply(
+            bodyColor: Colors.white,
+            displayColor: Colors.white,
+          )),
       home: HomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
+  HomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -73,13 +71,12 @@ class _HomePageState extends State<HomePage> {
               ),
               body: Center(
                 child: Column(
-
                   mainAxisAlignment: MainAxisAlignment.center,
 
                   //play with this
                   children: <Widget>[
                     Image.asset(
-                        'assets/smart_parking_logo.png',
+                      'assets/smart_parking_logo.png',
                       fit: BoxFit.fitWidth,
                     ),
                     ElevatedButton(
@@ -92,24 +89,39 @@ class _HomePageState extends State<HomePage> {
                         child: Text('Sign in')),
                     ElevatedButton(
                         onPressed: () => {
-                          Navigator.push<MaterialPageRoute>(context,
-                              MaterialPageRoute(builder: (context) {
-                                return SignedInView();
+                              Navigator.push<MaterialPageRoute>(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return SearchSpacesView();
                               }))
-                        },
+                            },
                         child: Text('Developer Sign in Bypass')),
-
                     ElevatedButton(
                         onPressed: () async => {await _launchURL()},
                         child: Row(
                           children: <Widget>[
-                            Image.asset('assets/google_logo.jpg', scale: 20,),
+                            Image.asset(
+                              'assets/google_logo.jpg',
+                              scale: 20,
+                            ),
                             Text('Sign up with google'),
                           ],
                         )),
                     Spacer(
                       flex: 1,
                     ),
+                    JsonGrid(
+                        jsonObject: ParkingSpace(
+                                bayId: '8346',
+                                lat: '-37.81243621759688',
+                                lon: '144.9678039100279',
+                                location: Location(
+                                    latitude: '-37.81243621759688',
+                                    longitude: '144.9678039100279',
+                                    humanAddress:
+                                        '{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}'),
+                                stMarkerId: '767Wa',
+                                status: 'Unoccupied')
+                            .toJson())
                   ],
                 ),
               ),

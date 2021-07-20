@@ -1,15 +1,15 @@
 
 import 'package:flutter/material.dart';
 
-class SignedInView extends StatefulWidget {
+class SearchSpacesView extends StatefulWidget {
 
   @override
-  State<SignedInView> createState() => _SignedInView();
+  State<SearchSpacesView> createState() => _SignedInView();
 }
 
 /// This is the private State class that goes with MyStatefulWidget.
-class _SignedInView extends State<SignedInView> {
-   TextEditingController _controller;
+class _SignedInView extends State<SearchSpacesView> {
+   late TextEditingController _controller;
    String _results = '';
   @override
   void initState() {
