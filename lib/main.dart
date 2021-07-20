@@ -59,76 +59,73 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Scaffold(
-              appBar: AppBar(
-                title: Text(widget.title),
-              ),
-              body: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
 
-                  //play with this
+          //play with this
+          children: <Widget>[
+            Image.asset(
+              'assets/smart_parking_logo.png',
+              fit: BoxFit.fill,
+            ),
+            ElevatedButton(
+                onPressed: () => {
+                      Navigator.push<MaterialPageRoute>(context,
+                          MaterialPageRoute(builder: (context) {
+                        return SignInView();
+                      }))
+                    },
+                child: Text('Sign in')),
+            ElevatedButton(
+                onPressed: () => {
+                      Navigator.push<MaterialPageRoute>(context,
+                          MaterialPageRoute(builder: (context) {
+                        return SearchSpacesView();
+                      }))
+                    },
+                child: Text('Developer Sign in Bypass')),
+            ElevatedButton(
+                onPressed: () async => {await _launchURL()},
+                child: Row(
                   children: <Widget>[
                     Image.asset(
-                      'assets/smart_parking_logo.png',
-                      fit: BoxFit.fitWidth,
+                      'assets/google_logo.jpg',
+                      scale: 20,
                     ),
-                    ElevatedButton(
-                        onPressed: () => {
-                              Navigator.push<MaterialPageRoute>(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return SignInView();
-                              }))
-                            },
-                        child: Text('Sign in')),
-                    ElevatedButton(
-                        onPressed: () => {
-                              Navigator.push<MaterialPageRoute>(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return SearchSpacesView();
-                              }))
-                            },
-                        child: Text('Developer Sign in Bypass')),
-                    ElevatedButton(
-                        onPressed: () async => {await _launchURL()},
-                        child: Row(
-                          children: <Widget>[
-                            Image.asset(
-                              'assets/google_logo.jpg',
-                              scale: 20,
-                            ),
-                            Text('Sign up with google'),
-                          ],
-                        )),
-                    Spacer(
-                      flex: 1,
-                    ),
-                    JsonGrid(
-                        jsonObject: ParkingSpace(
-                                bayId: '8346',
-                                lat: '-37.81243621759688',
-                                lon: '144.9678039100279',
-                                location: Location(
-                                    latitude: '-37.81243621759688',
-                                    longitude: '144.9678039100279',
-                                    humanAddress:
-                                        '{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}'),
-                                stMarkerId: '767Wa',
-                                status: 'Unoccupied')
-                            .toJson())
+                    Text('  Sign up with google'),
                   ],
-                ),
-              ),
-            ),
-          ),
+                )),
+            // Spacer(
+            //   flex: 1,
+            // ),
+            ///TODO move following container to parking space view and change test vals to pull from REST API
+            Container(
+                constraints: BoxConstraints(maxHeight: 100, maxWidth: 400),
+                child: JsonGrid(
+                    jsonObject: ParkingSpace(
+                            bayId: '8346',
+                            lat: '-37.81243621759688',
+                            lon: '144.9678039100279',
+                            location: Location(
+                                latitude: '-37.81243621759688',
+                                longitude: '144.9678039100279',
+                                humanAddress:
+                                    '{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}'),
+                            stMarkerId: '767Wa',
+                            status: 'Unoccupied')
+                        .toJson()))
+          ],
         ),
       ),
     );
+    //  ),
+    //     ),
+    //   ),
+    // );
   }
 }
