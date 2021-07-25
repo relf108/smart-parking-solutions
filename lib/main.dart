@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:smart_parking_solutions/views/sign_in_view.dart';
 import 'package:smart_parking_solutions/views/search_spaces.dart';
-import 'package:smart_parking_solutions/widgets/json_grid.dart';
 import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -68,7 +67,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
 
           //play with this
-          children: <Widget>[
+          children: <Widget>[ 
             Image.asset(
               'assets/smart_parking_logo.png',
               fit: BoxFit.fill,
@@ -100,32 +99,9 @@ class _HomePageState extends State<HomePage> {
                     Text('  Sign up with google'),
                   ],
                 )),
-            // Spacer(
-            //   flex: 1,
-            // ),
-            ///TODO move following container to parking space view and change test vals to pull from REST API
-            Container(
-                constraints: BoxConstraints(maxHeight: 100, maxWidth: 400),
-                child: JsonGrid(
-                    jsonObject: ParkingSpace(
-                            bayId: '8346',
-                            lat: '-37.81243621759688',
-                            lon: '144.9678039100279',
-                            location: Location(
-                                latitude: '-37.81243621759688',
-                                longitude: '144.9678039100279',
-                                humanAddress:
-                                    '{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}'),
-                            stMarkerId: '767Wa',
-                            status: 'Unoccupied')
-                        .toJson()))
           ],
         ),
       ),
     );
-    //  ),
-    //     ),
-    //   ),
-    // );
   }
 }

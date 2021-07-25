@@ -33,6 +33,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   geolocator: ^7.3.0
   geocoding: ^2.0.0
+  dimension_ratios: ^0.0.1
 
 dev_dependencies:
   flutter_test:
