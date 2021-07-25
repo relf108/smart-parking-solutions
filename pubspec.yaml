@@ -34,6 +34,7 @@ dependencies:
   geolocator: ^7.3.0
   geocoding: ^2.0.0
   dimension_ratios: ^0.0.1
+  flutter_signin_button: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_builder.dart';
 
-
-
 /// Entrypoint example for sign in via Email/Password.
 class SigninPage extends StatefulWidget {
   /// The page title.
   final String title = 'Sign_in';
 
   @override
-  State<StatefulWidget> createState() => _signinPageState();
+  State<StatefulWidget> createState() => _SigninPageState();
 }
 
-class _signinPageState extends State<SigninPage> {
+class _SigninPageState extends State<SigninPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  bool _success;
+  late bool _success;
   String _userEmail = '';
 
   @override
@@ -37,8 +35,8 @@ class _signinPageState extends State<SigninPage> {
                   TextFormField(
                     controller: _emailController,
                     decoration: const InputDecoration(labelText: 'Email'),
-                    validator: (String value) {
-                      if (value.isEmpty) {
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
                         return 'Please enter some text';
                       }
                       return null;
@@ -47,8 +45,8 @@ class _signinPageState extends State<SigninPage> {
                   TextFormField(
                     controller: _passwordController,
                     decoration: const InputDecoration(labelText: 'Password'),
-                    validator: (String value) {
-                      if (value.isEmpty) {
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
                         return 'Please enter some text';
                       }
                       return null;
@@ -62,7 +60,7 @@ class _signinPageState extends State<SigninPage> {
                       icon: Icons.person_add,
                       backgroundColor: Colors.blueGrey,
                       onPressed: () async {
-                        if (_formKey.currentState.validate()) {
+                        if (_formKey.currentState!.validate()) {
                           await _signin();
                         }
                       },
@@ -94,10 +92,8 @@ class _signinPageState extends State<SigninPage> {
 
   // Example code for sign in logic
   Future<void> _signin() async {
-
-   // logic to access database and validate username password
-   // access controller to validate???
-   //create a sign in controller???
-  
+    // logic to access database and validate username password
+    // access controller to validate???
+    //create a sign in controller???
   }
 }
