@@ -69,7 +69,7 @@ class _SigninPageState extends State<SigninPage> {
                   ),
                   Container(
                     alignment: Alignment.center,
-                    child: Text(_success == null
+                    child: Text(_success
                         ? ''
                         : (_success
                             ? 'Successfully signed in $_userEmail'
