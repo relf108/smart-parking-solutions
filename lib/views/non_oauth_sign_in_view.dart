@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_builder.dart';
 import 'package:smart_parking_solutions/backend_requests/sign_in_controller_requestor.dart';
+import 'package:smart_parking_solutions/views/create_password_view.dart';
 
 /// Entrypoint example for sign in via Email/Password.
 class SigninPage extends StatefulWidget {
@@ -115,6 +116,11 @@ class _SigninPageState extends State<SigninPage> {
         break;
       case HttpStatus.badRequest:
         {
+          Navigator.push<MaterialPageRoute>(context,
+              MaterialPageRoute(builder: (context) {
+            return CreatePasswordView(email);
+          }));
+
           ///TODO Prompt for new password
         }
         break;
