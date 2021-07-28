@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_builder.dart';
+import 'package:smart_parking_solutions/backend_requests/sign_in_controller_requestor.dart';
 
 /// Entrypoint example for sign in via Email/Password.
 class SigninPage extends StatefulWidget {
@@ -61,7 +64,9 @@ class _SigninPageState extends State<SigninPage> {
                       backgroundColor: Colors.blueGrey,
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          await _signin();
+                          await _signin(
+                              email: _emailController.text,
+                              password: _passwordController.text);
                         }
                       },
                       text: 'signin',
@@ -91,9 +96,29 @@ class _SigninPageState extends State<SigninPage> {
   }
 
   // Example code for sign in logic
-  Future<void> _signin() async {
-    // logic to access database and validate username password
-    // access controller to validate???
-    //create a sign in controller???
+  Future<void> _signin(
+      {required String email, required String password}) async {
+    final signinRequestor =
+        new SignInControllerRequestor(email: email, password: password);
+    final loginStatus = await signinRequestor.attemptLogin();
+
+    switch (loginStatus.statusCode) {
+      case HttpStatus.accepted:
+        {
+          _success = true;
+        }
+        break;
+      case HttpStatus.unauthorized:
+        {
+          _success = false;
+        }
+        break;
+      case HttpStatus.badRequest:
+        {
+          ///TODO Prompt for new password
+        }
+        break;
+      default:
+    }
   }
 }

@@ -1,14 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/widgets.dart';
 import 'package:smart_parking_solutions/backend_requests/rest_details.dart';
 
 class ParkingControllerRequestor {
   var lat;
   var long;
   var distance;
-  ParkingControllerRequestor({@required lat, @required long, @required distance});
+  ParkingControllerRequestor({required lat, required long, required distance});
 
   ///Return available spaces within distance around coordinates (JSON object)
   Future<String> getSpaces() async {
