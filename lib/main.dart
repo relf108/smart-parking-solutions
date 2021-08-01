@@ -45,8 +45,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<void> _launchURL() async {
-    const localhost = 'localhost';
-    //const localhost = '10.0.2.2';
+    //const localhost = 'localhost';
+    const localhost = '10.0.2.2';
     final url =
         'https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.profile&response_type=code&redirect_uri=http://$localhost:8888/authUser&client_id=${Credentials.clientID}';
     if (Platform.isAndroid || Platform.isIOS) {
