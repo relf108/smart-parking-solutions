@@ -1,10 +1,12 @@
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_parking_solutions/views/sign_in_view.dart';
+import 'package:smart_parking_solutions/views/search_spaces.dart';
+import 'package:smart_parking_solutions/views/create_password_view.dart';
 import 'package:smart_parking_solutions/widgets/json_grid.dart';
 import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 
-
-///EXAMPLE STATELESS WIDGET 
+///EXAMPLE STATELESS WIDGET
 class View extends StatefulWidget {
   @override
   State<View> createState() => _View();
@@ -30,10 +32,78 @@ class _View extends State<View> {
   Widget build(BuildContext context) {
     final ratioGen = new ScreenRatioGenerator(context: context);
     return Scaffold(
-        appBar: AppBar(
-          toolbarHeight: ratioGen.screenHeightPercent(percent: 6),
-          title: const Text('Home'),
-        )
+      appBar: AppBar(
+        toolbarHeight: ratioGen.screenHeightPercent(percent: 6),
+        title: const Text('Home'),
+      ),
+      body: Container(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Container(
+                  height: ratioGen.screenHeightPercent(percent: 50),
+                  width: ratioGen.screenWidthPercent(percent: 100),
+                  child: Card(
+                    semanticContainer: true,
+                    clipBehavior: Clip.antiAlias,
+                    child: Image.asset(
+                      'assets/smart_parking_icon.png',
+                      width: ratioGen.screenWidthPercent(percent: 90),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Row(
+              children: [
+                Container(
+                    height: ratioGen.screenHeightPercent(percent: 19),
+                    width: ratioGen.screenWidthPercent(percent: 100),
+                    child: GestureDetector(
+                      onTap: () => {
+                        Navigator.push<MaterialPageRoute>(context,
+                            MaterialPageRoute(builder: (context) {
+                          return SearchSpacesView();
+                        }))
+                      },
+                      child: Card(
+                        color: Colors.red,
+                        semanticContainer: true,
+                        clipBehavior: Clip.antiAlias,
+                        child: Image.asset(
+                          'assets/snr.png',
+                        ),
+                      ),
+                    ))
+              ],
+            ),
+            Row(
+              children: [
+                Container(
+                    height: ratioGen.screenHeightPercent(percent: 19),
+                    width: ratioGen.screenWidthPercent(percent: 100),
+                    child: GestureDetector(
+                      onTap: () => {
+                        Navigator.push<MaterialPageRoute>(context,
+                            MaterialPageRoute(builder: (context) {
+                          return CreatePasswordView("test@123.com");
+                        }))
+                      },
+                      child: Card(
+                        color: Colors.red,
+                        semanticContainer: true,
+                        clipBehavior: Clip.antiAlias,
+                        child: Image.asset(
+                          'assets/ap.png',
+                        ),
+                      ),
+                    ))
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
