@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:smart_parking_solutions/views/sign_in_view.dart';
 import 'package:smart_parking_solutions/views/search_spaces.dart';
 import 'package:smart_parking_solutions/views/view.dart';
+import 'package:smart_parking_solutions/views/booking_conf.dart';
+import 'package:smart_parking_solutions/views/reserve_space.dart';
 import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -157,14 +159,30 @@ class _HomePageState extends State<HomePage> {
                           }))
                         },
                     child: Text('Search Spaces')),
-                ElevatedButton(
-                  onPressed: () {
-                    print("Button clicked");
-                  },
-                  child: Text('Reserve Spaces'),
-                )
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push<MaterialPageRoute>(context,
+                        MaterialPageRoute(builder: (context) {
+                      return ReserveSpaceView();
+                    }));
+                  },
+                  child: Text('Reserve Spaces'),
+                ),
+                ElevatedButton(
+                    onPressed: () => {
+                          Navigator.push<MaterialPageRoute>(context,
+                              MaterialPageRoute(builder: (context) {
+                            return BookingConfView();
+                          }))
+                        },
+                    child: Text('Booking Confirmation')),
+              ],
+            )
           ],
         ),
       ),

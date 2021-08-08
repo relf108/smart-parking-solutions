@@ -47,10 +47,6 @@ class _View extends State<View> {
                   child: Card(
                     semanticContainer: true,
                     clipBehavior: Clip.antiAlias,
-                    child: Image.asset(
-                      'assets/smart_parking_icon.png',
-                      width: ratioGen.screenWidthPercent(percent: 90),
-                    ),
                   ),
                 )
               ],
