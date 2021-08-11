@@ -7,6 +7,7 @@ import 'package:smart_parking_solutions/views/view.dart';
 import 'package:smart_parking_solutions/views/booking_conf.dart';
 import 'package:smart_parking_solutions/views/reserve_space.dart';
 import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
+import 'package:smart_parking_solutions/views/http_example.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 // ignore: implementation_imports
@@ -95,11 +96,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               )
             ]),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Container(
-                height: (MediaQuery.of(context).size.height) / 25,
-              )
-            ]),
             Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [Text('---Sign in with---')]),
@@ -181,6 +177,20 @@ class _HomePageState extends State<HomePage> {
                           }))
                         },
                     child: Text('Booking Confirmation')),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push<MaterialPageRoute>(context,
+                        MaterialPageRoute(builder: (context) {
+                      return HttpExample();
+                    }));
+                  },
+                  child: Text('HTTP EXAMPLE'),
+                ),
               ],
             )
           ],
