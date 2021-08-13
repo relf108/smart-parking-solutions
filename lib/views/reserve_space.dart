@@ -42,8 +42,6 @@ import 'package:smart_parking_solutions_common/smart_parking_solutions_common.da
 import 'package:flutter/material.dart';
 
 class ReserveSpaces extends StatefulWidget {
-  
-
   @override
   State<StatefulWidget> createState() => ReserveSpacesState();
 }
@@ -57,8 +55,6 @@ class ReserveSpacesState extends State<ReserveSpaces> {
       ),
       body: getListView(),
     );
-
-    // throw UnimplementedError();
   }
 
   //Data source yup
