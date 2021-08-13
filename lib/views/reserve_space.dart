@@ -40,12 +40,9 @@ import 'package:smart_parking_solutions_common/smart_parking_solutions_common.da
 // }
 
 import 'package:flutter/material.dart';
-//import 'package:flutter_signin_button/button_builder.dart';
 
-/// Entrypoint example for registering via Email/Password.
 class ReserveSpaces extends StatefulWidget {
-  /// The page title.
-  final String title = 'Registration';
+  
 
   @override
   State<StatefulWidget> createState() => ReserveSpacesState();
