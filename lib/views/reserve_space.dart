@@ -51,7 +51,7 @@ class ReserveSpacesState extends State<ReserveSpaces> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ListView"),
+        title: Text("Melbourne Parking Locations"),
       ),
       body: getListView(),
     );
