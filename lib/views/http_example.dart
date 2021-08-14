@@ -78,24 +78,24 @@ class _HttpExample extends State<HttpExample> {
                         onPressed: () => [
                           makeGetRequest(username.text),
                           showDialog<String>(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              title:
-                                  Text('User ' + username.text + ' response:'),
-                              content: Text(responsestring),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(context, 'Cancel'),
-                                  child: const Text('Cancel'),
-                                ),
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            ),
-                          )
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                    title: Text(
+                                        'User ' + username.text + ' response:'),
+                                    content: Text(responsestring),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'Cancel'),
+                                        child: const Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'OK'),
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  ))
                         ],
                         child: const Text('Submit'),
                       ),
