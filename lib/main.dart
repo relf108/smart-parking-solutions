@@ -11,7 +11,7 @@ import 'package:smart_parking_solutions/views/http_example.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 // ignore: implementation_imports
-import 'package:smart_parking_solutions_common/src/credentials.dart';
+//import 'package:smart_parking_solutions_common/src/credentials.dart';
 
 //main method commenting
 void main() {
@@ -19,19 +19,19 @@ void main() {
 }
 
 Map<int, Color> color = {
-  50: Color.fromRGBO(242, 129, 129, .1),
-  100: Color.fromRGBO(242, 129, 129, .2),
-  200: Color.fromRGBO(242, 129, 129, .3),
-  300: Color.fromRGBO(242, 129, 129, .4),
-  400: Color.fromRGBO(242, 129, 129, .5),
-  500: Color.fromRGBO(242, 129, 129, .6),
-  600: Color.fromRGBO(242, 129, 129, .7),
-  700: Color.fromRGBO(242, 129, 129, .8),
-  800: Color.fromRGBO(242, 129, 129, .9),
-  900: Color.fromRGBO(242, 129, 129, 1),
+  50: Color.fromRGBO(25, 25, 112, .1),
+  100: Color.fromRGBO(25, 25, 112, .2),
+  200: Color.fromRGBO(25, 25, 112, .3),
+  300: Color.fromRGBO(25, 25, 112, .4),
+  400: Color.fromRGBO(25, 25, 112, .5),
+  500: Color.fromRGBO(25, 25, 112, .6),
+  600: Color.fromRGBO(25, 25, 112, .7),
+  700: Color.fromRGBO(25, 25, 112, .8),
+  800: Color.fromRGBO(25, 25, 112, .9),
+  900: Color.fromRGBO(25, 25, 112, 1),
 };
 
-MaterialColor spsred = MaterialColor(0xfff28181, color);
+MaterialColor spsblue = MaterialColor(0xff191970, color);
 
 class SmartParkingSolutions extends StatelessWidget {
   // This widget is the root of your application.
@@ -40,9 +40,9 @@ class SmartParkingSolutions extends StatelessWidget {
     return MaterialApp(
       title: 'Smart Parking Demo',
       theme: ThemeData(
-          primarySwatch: Colors.red,
-          backgroundColor: Color(0xfff28181),
-          scaffoldBackgroundColor: Color(0xfff28181),
+          primarySwatch: spsblue,
+          backgroundColor: Color(0xff4169E1),
+          scaffoldBackgroundColor: Color(0xff4169E1),
           textTheme:
               TextTheme(bodyText1: TextStyle(), bodyText2: TextStyle()).apply(
             bodyColor: Colors.white,
@@ -64,7 +64,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<void> _launchURL() async {
-    //const localhost = 'localhost';
+    const localhost = 'localhost';
     const localhost = 'geekayk.ddns.net';
     final url =
         'https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&response_type=code&redirect_uri=http://$localhost:8888/authUser&client_id=${Credentials.clientID}';

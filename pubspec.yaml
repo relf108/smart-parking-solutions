@@ -23,10 +23,12 @@ environment:
 dependencies:
   http: ^0.13.3
   url_launcher: ^6.0.9
+  flutter_launcher_icons: "^0.9.1"
+  date_time_picker: "^2.1.0"
   flutter:
     sdk: flutter
-  smart_parking_solutions_common:
-    path: ../smart_parking_solutions_common
+  # smart_parking_solutions_common:
+  #   path: ../smart_parking_solutions_common
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -64,6 +66,12 @@ flutter:
     - assets/google_logo.jpg
     - assets/smart_parking_logo.png
     - assets/
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/smart_parking_logo_b2.png"
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
