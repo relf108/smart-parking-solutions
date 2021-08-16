@@ -64,7 +64,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<void> _launchURL() async {
-    const localhost = 'localhost';
+   // const localhost = 'localhost';
     const localhost = 'geekayk.ddns.net';
     final url =
         'https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&response_type=code&redirect_uri=http://$localhost:8888/authUser&client_id=${Credentials.clientID}';

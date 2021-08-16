@@ -24,7 +24,6 @@ dependencies:
   http: ^0.13.3
   url_launcher: ^6.0.9
   flutter_launcher_icons: "^0.9.1"
-  date_time_picker: "^2.1.0"
   flutter:
     sdk: flutter
   # smart_parking_solutions_common:
@@ -38,6 +37,8 @@ dependencies:
   dimension_ratios: ^0.0.1
   flutter_signin_button: ^2.0.0
   galileo_mysql: ^3.0.0
+  flutter_datetime_picker: ^1.5.1
+  smart_parking_solutions_common: ^0.0.11
   
 
 dev_dependencies:
