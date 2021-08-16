@@ -31,9 +31,29 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
   Widget build(BuildContext context) {
     final ratioGen = new ScreenRatioGenerator(context: context);
     return Scaffold(
-        appBar: AppBar(
-      toolbarHeight: ratioGen.screenHeightPercent(percent: 6),
-      title: const Text('Reserve Spaces'),
-    ));
+      appBar: AppBar(
+        toolbarHeight: ratioGen.screenHeightPercent(percent: 6),
+        title: Text("Melbourne Parking Locations"),
+      ),
+      body: getListView(),
+    );
+  }
+
+  //Data source yup
+  List<String> getListElement() {
+    var items =
+        List<String>.generate(1000, (index) => "LOCATION --- MELBOURNE $index");
+    return items;
+  }
+
+  Widget getListView() {
+    var listItems = getListElement();
+
+    var listView = ListView.builder(itemBuilder: (context, index) {
+      return ListTile(
+        title: Text(listItems[index]),
+      );
+    });
+    return listView;
   }
 }
