@@ -6,8 +6,8 @@ import 'package:smart_parking_solutions/views/search_spaces.dart';
 import 'package:smart_parking_solutions/views/view.dart';
 import 'package:smart_parking_solutions/views/booking_conf.dart';
 import 'package:smart_parking_solutions/views/reserve_space.dart';
-import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 import 'package:smart_parking_solutions/views/http_example.dart';
+import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 // ignore: implementation_imports
@@ -64,7 +64,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<void> _launchURL() async {
-   // const localhost = 'localhost';
+    // const localhost = 'localhost';
     const localhost = 'geekayk.ddns.net';
     final url =
         'https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&response_type=code&redirect_uri=http://$localhost:8888/authUser&client_id=${Credentials.clientID}';
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.fill,
-                    image: AssetImage("assets/smart_parking_logo.png"),
+                    image: AssetImage("assets/smart_parking_logo_b2.png"),
                   ),
                 ),
               )
