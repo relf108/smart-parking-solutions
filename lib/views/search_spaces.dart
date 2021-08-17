@@ -1,27 +1,21 @@
-import 'dart:ffi';
-import 'dart:convert';
-
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_parking_solutions/main.dart';
-import 'package:smart_parking_solutions/views/sign_in_view.dart';
-import 'package:smart_parking_solutions/views/search_spaces.dart';
 import 'package:smart_parking_solutions/views/reserve_space.dart';
-import 'package:smart_parking_solutions/views/create_password_view.dart';
-import 'package:smart_parking_solutions/widgets/json_grid.dart';
-import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class SearchSpacesView extends StatefulWidget {
   @override
   State<SearchSpacesView> createState() => _SearchSpacesView();
 }
 
-Future<String> makeGetRequest(
-    String address, String radius, BuildContext context) async {
+Future<String> makeGetRequest(String address, String radius, DateTime date,
+    DateTime time, double duration, BuildContext context) async {
+  CircularProgressIndicator();
   print('Address: $address Radius $radius');
+  var bookingdatetime = new DateTime(date.year, date.month, date.day, time.hour,
+      time.minute, time.second, time.hashCode);
+  print(bookingdatetime);
   String urlstring = 'http://geekayk.ddns.net:8888/searchSpaces?address=' +
       address +
       '&distance=' +
@@ -32,6 +26,8 @@ Future<String> makeGetRequest(
       MaterialPageRoute(builder: (context) {
     return ReserveSpaceView(
       jsonresponse: response.body,
+      bookingdate: bookingdatetime,
+      duration: duration,
     );
   }));
   return response.body;
@@ -42,12 +38,11 @@ class _SearchSpacesView extends State<SearchSpacesView> {
   final _formKey = GlobalKey<FormState>();
   final address = TextEditingController();
   late int _radius = 100;
-  var _value;
   double _duration = 0.5;
   String _date = "Not set";
   String _time = "Not set";
+  late DateTime seldate, seltime;
   late TextEditingController _controller;
-  String _results = '';
 
   get late => null;
   @override
@@ -61,9 +56,7 @@ class _SearchSpacesView extends State<SearchSpacesView> {
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (BuildContext context) => super.widget));
 
-    setState(() {
-      _value = null;
-    });
+    setState(() {});
   }
 
   @override
@@ -123,6 +116,7 @@ class _SearchSpacesView extends State<SearchSpacesView> {
                                         print('confirm $date');
                                         _date =
                                             '${date.year} - ${date.month} - ${date.day}';
+                                        seldate = date;
                                         setState(() {});
                                       },
                                           currentTime: DateTime.now(),
@@ -173,6 +167,7 @@ class _SearchSpacesView extends State<SearchSpacesView> {
                                           print('confirm $time');
                                           _time =
                                               '${time.hour} : ${time.minute}';
+                                          seltime = time;
                                           setState(() {});
                                         },
                                             currentTime: DateTime.now(),
@@ -303,8 +298,13 @@ class _SearchSpacesView extends State<SearchSpacesView> {
                                       ratioGen.screenWidthPercent(percent: 30),
                                   child: ElevatedButton(
                                       onPressed: () async {
-                                        makeGetRequest(address.text,
-                                            _radius.toString(), context);
+                                        makeGetRequest(
+                                            address.text,
+                                            _radius.toString(),
+                                            seldate,
+                                            seltime,
+                                            _duration,
+                                            context);
                                       },
                                       child: Text('Submit')),
                                 ),

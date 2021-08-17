@@ -16,6 +16,10 @@ import 'package:url_launcher/url_launcher.dart';
 // ignore: implementation_imports
 //import 'package:smart_parking_solutions_common/src/credentials.dart';
 
+String testuser = '102145123@student.swin.edu.au';
+var bookingdate = new DateTime.now();
+double duration = 1.0;
+
 //main method commenting
 Future<void> main() async {
   runApp(SmartParkingSolutions());
@@ -173,8 +177,11 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push<MaterialPageRoute>(context,
                         MaterialPageRoute(builder: (context) {
                       return ReserveSpaceView(
-                          jsonresponse:
-                              '{"numberOfSpaces":8,"bays":[{"distance":"1082","lat":"-37.80927403563136","long":"144.9740444973502","bayID":"5584","streetMarkerID":"12202N","description":{"description1":"2P MTR M-F 7:30-16:00","description2":"2P MTR SAT 7:30-12:30"}},{"distance":"529","lat":"-37.80793927082333","long":"144.96599596432765","bayID":"2749","streetMarkerID":"4580E","description":{"description1":"2P MTR M-SAT 7:30-20:30"}},{"distance":"589","lat":"-37.807708853788455","long":"144.96630832170874","bayID":"3408","streetMarkerID":"6257S","description":{"description1":"4P MTR M-SAT 7.30-8.30"}},{"distance":"578","lat":"-37.80774341058874","long":"144.9661907526817","bayID":"3414","streetMarkerID":"6263S","description":{"description1":"4P MTR M-SAT 7.30-8.30"}},{"distance":"593","lat":"-37.80740153209552","long":"144.96591541546846","bayID":"2753","streetMarkerID":"4592E","description":{"description1":"2P MTR M-SAT 7:30-20:30"}},{"distance":"587","lat":"-37.80745530729499","long":"144.9659084655904","bayID":"2752","streetMarkerID":"4590E","description":{"description1":"2P MTR M-SAT 7:30-20:30"}},{"distance":"592","lat":"-37.80760467000953","long":"144.9663048493107","bayID":"3405","streetMarkerID":"6254N","description":{"description1":"4P MTR M-SAT 7.30-8.30"}},{"distance":"599","lat":"-37.80758513511026","long":"144.96637132175528","bayID":"3403","streetMarkerID":"6252N","description":{"description1":"4P MTR M-SAT 7.30-8.30"}}]}');
+                        jsonresponse:
+                            '{"numberOfSpaces":8,"bays":[{"distance":"1082","lat":"-37.80927403563136","long":"144.9740444973502","bayID":"5584","streetMarkerID":"12202N","description":{"description1":"2P MTR M-F 7:30-16:00","description2":"2P MTR SAT 7:30-12:30"}},{"distance":"529","lat":"-37.80793927082333","long":"144.96599596432765","bayID":"2749","streetMarkerID":"4580E","description":{"description1":"2P MTR M-SAT 7:30-20:30"}},{"distance":"589","lat":"-37.807708853788455","long":"144.96630832170874","bayID":"3408","streetMarkerID":"6257S","description":{"description1":"4P MTR M-SAT 7.30-8.30"}},{"distance":"578","lat":"-37.80774341058874","long":"144.9661907526817","bayID":"3414","streetMarkerID":"6263S","description":{"description1":"4P MTR M-SAT 7.30-8.30"}},{"distance":"593","lat":"-37.80740153209552","long":"144.96591541546846","bayID":"2753","streetMarkerID":"4592E","description":{"description1":"2P MTR M-SAT 7:30-20:30"}},{"distance":"587","lat":"-37.80745530729499","long":"144.9659084655904","bayID":"2752","streetMarkerID":"4590E","description":{"description1":"2P MTR M-SAT 7:30-20:30"}},{"distance":"592","lat":"-37.80760467000953","long":"144.9663048493107","bayID":"3405","streetMarkerID":"6254N","description":{"description1":"4P MTR M-SAT 7.30-8.30"}},{"distance":"599","lat":"-37.80758513511026","long":"144.96637132175528","bayID":"3403","streetMarkerID":"6252N","description":{"description1":"4P MTR M-SAT 7.30-8.30"}}]}',
+                        bookingdate: bookingdate,
+                        duration: duration,
+                      );
                     }))
                   ],
                   child: Text('Reserve Spaces'),
@@ -183,7 +190,12 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () => {
                           Navigator.push<MaterialPageRoute>(context,
                               MaterialPageRoute(builder: (context) {
-                            return BookingConfView();
+                            return ReserveSpaceView(
+                              jsonresponse:
+                                  '{"numberOfSpaces":8,"bays":[{"distance":"1082","lat":"-37.80927403563136","long":"144.9740444973502","bayID":"5584","streetMarkerID":"12202N","description":{"description1":"2P MTR M-F 7:30-16:00","description2":"2P MTR SAT 7:30-12:30"}},{"distance":"529","lat":"-37.80793927082333","long":"144.96599596432765","bayID":"2749","streetMarkerID":"4580E","description":{"description1":"2P MTR M-SAT 7:30-20:30"}},{"distance":"589","lat":"-37.807708853788455","long":"144.96630832170874","bayID":"3408","streetMarkerID":"6257S","description":{"description1":"4P MTR M-SAT 7.30-8.30"}},{"distance":"578","lat":"-37.80774341058874","long":"144.9661907526817","bayID":"3414","streetMarkerID":"6263S","description":{"description1":"4P MTR M-SAT 7.30-8.30"}},{"distance":"593","lat":"-37.80740153209552","long":"144.96591541546846","bayID":"2753","streetMarkerID":"4592E","description":{"description1":"2P MTR M-SAT 7:30-20:30"}},{"distance":"587","lat":"-37.80745530729499","long":"144.9659084655904","bayID":"2752","streetMarkerID":"4590E","description":{"description1":"2P MTR M-SAT 7:30-20:30"}},{"distance":"592","lat":"-37.80760467000953","long":"144.9663048493107","bayID":"3405","streetMarkerID":"6254N","description":{"description1":"4P MTR M-SAT 7.30-8.30"}},{"distance":"599","lat":"-37.80758513511026","long":"144.96637132175528","bayID":"3403","streetMarkerID":"6252N","description":{"description1":"4P MTR M-SAT 7.30-8.30"}}]}',
+                              bookingdate: bookingdate,
+                              duration: duration,
+                            );
                           }))
                         },
                     child: Text('Booking Confirmation')),

@@ -1,9 +1,7 @@
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_parking_solutions/views/sign_in_view.dart';
 import 'package:smart_parking_solutions/views/search_spaces.dart';
 import 'package:smart_parking_solutions/views/create_password_view.dart';
-import 'package:smart_parking_solutions/widgets/json_grid.dart';
 
 ///EXAMPLE STATELESS WIDGET
 class View extends StatefulWidget {
@@ -14,7 +12,6 @@ class View extends StatefulWidget {
 /// This is the private State class that goes with MyStatefulWidget.
 class _View extends State<View> {
   late TextEditingController _controller;
-  String _results = '';
   @override
   void initState() {
     super.initState();
