@@ -1,10 +1,12 @@
 import 'dart:ffi';
+import 'dart:convert';
 
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_parking_solutions/main.dart';
 import 'package:smart_parking_solutions/views/sign_in_view.dart';
 import 'package:smart_parking_solutions/views/search_spaces.dart';
+import 'package:smart_parking_solutions/views/reserve_space.dart';
 import 'package:smart_parking_solutions/views/create_password_view.dart';
 import 'package:smart_parking_solutions/widgets/json_grid.dart';
 import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
@@ -17,35 +19,28 @@ class SearchSpacesView extends StatefulWidget {
   State<SearchSpacesView> createState() => _SearchSpacesView();
 }
 
-String resp = '';
-String urlstring = '';
-
-Future<void> makeGetRequest(String address, String radius) async {
+Future<String> makeGetRequest(
+    String address, String radius, BuildContext context) async {
   print('Address: $address Radius $radius');
-  urlstring = 'http://192.168.87.86:8888/searchSpaces?address=' +
+  String urlstring = 'http://192.168.87.86:8888/searchSpaces?address=' +
       address +
       '&distance=' +
       radius;
-  final url = Uri.parse('http://192.168.87.86:8888/searchSpaces?address=' +
-      address +
-      '&distance=' +
-      radius);
+  final url = Uri.parse(urlstring);
   Response response = await get(url);
-  print('Status code: ${response.statusCode}');
-  print('Headers: ${response.headers}');
-  print('Body: ${response.body}');
-  resp = response.statusCode.toString();
+  Navigator.push<MaterialPageRoute>(context,
+      MaterialPageRoute(builder: (context) {
+    return ReserveSpaceView(
+      jsonresponse: response.body,
+    );
+  }));
+  return response.body;
 }
 
 /// This is the private State class that goes with MyStatefulWidget.
 class _SearchSpacesView extends State<SearchSpacesView> {
   final _formKey = GlobalKey<FormState>();
   final address = TextEditingController();
-  final username = TextEditingController();
-  final arrivaltime = TextEditingController();
-  final date = TextEditingController();
-  final radius = TextEditingController();
-  final duration = TextEditingController();
   late int _radius = 100;
   var _value;
   double _duration = 0.5;
@@ -307,13 +302,10 @@ class _SearchSpacesView extends State<SearchSpacesView> {
                                   width:
                                       ratioGen.screenWidthPercent(percent: 30),
                                   child: ElevatedButton(
-                                      onPressed: () => {
-                                            [
-                                              makeGetRequest(address.text,
-                                                  _radius.toString()),
-                                              launch(urlstring),
-                                            ]
-                                          },
+                                      onPressed: () async {
+                                        makeGetRequest(address.text,
+                                            _radius.toString(), context);
+                                      },
                                       child: Text('Submit')),
                                 ),
                               ]),

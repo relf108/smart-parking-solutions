@@ -67,6 +67,7 @@ flutter:
     - assets/google_logo.jpg
     - assets/smart_parking_logo.png
     - assets/
+    - assets/testresponsedata.json
 
 flutter_icons:
   android: "launcher_icon"

@@ -1,0 +1,880 @@
+{
+   "numberOfSpaces":78,
+   "bays":[
+      {
+         "distance":"1082",
+         "lat":"-37.80927403563136",
+         "long":"144.9740444973502",
+         "bayID":"5584",
+         "streetMarkerID":"12202N",
+         "description":{
+            "description1":"2P MTR M-F 7:30-16:00",
+            "description2":"2P MTR SAT 7:30-12:30"
+         }
+      },
+      {
+         "distance":"529",
+         "lat":"-37.80793927082333",
+         "long":"144.96599596432765",
+         "bayID":"2749",
+         "streetMarkerID":"4580E",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30"
+         }
+      },
+      {
+         "distance":"589",
+         "lat":"-37.807708853788455",
+         "long":"144.96630832170874",
+         "bayID":"3408",
+         "streetMarkerID":"6257S",
+         "description":{
+            "description1":"4P MTR M-SAT 7.30-8.30"
+         }
+      },
+      {
+         "distance":"578",
+         "lat":"-37.80774341058874",
+         "long":"144.9661907526817",
+         "bayID":"3414",
+         "streetMarkerID":"6263S",
+         "description":{
+            "description1":"4P MTR M-SAT 7.30-8.30"
+         }
+      },
+      {
+         "distance":"593",
+         "lat":"-37.80740153209552",
+         "long":"144.96591541546846",
+         "bayID":"2753",
+         "streetMarkerID":"4592E",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30"
+         }
+      },
+      {
+         "distance":"587",
+         "lat":"-37.80745530729499",
+         "long":"144.9659084655904",
+         "bayID":"2752",
+         "streetMarkerID":"4590E",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30"
+         }
+      },
+      {
+         "distance":"592",
+         "lat":"-37.80760467000953",
+         "long":"144.9663048493107",
+         "bayID":"3405",
+         "streetMarkerID":"6254N",
+         "description":{
+            "description1":"4P MTR M-SAT 7.30-8.30"
+         }
+      },
+      {
+         "distance":"599",
+         "lat":"-37.80758513511026",
+         "long":"144.96637132175528",
+         "bayID":"3403",
+         "streetMarkerID":"6252N",
+         "description":{
+            "description1":"4P MTR M-SAT 7.30-8.30"
+         }
+      },
+      {
+         "distance":"495",
+         "lat":"-37.80915108992147",
+         "long":"144.9655783623318",
+         "bayID":"2130",
+         "streetMarkerID":"3705S",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30",
+            "description2":"2P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"575",
+         "lat":"-37.80775320631275",
+         "long":"144.96615764256336",
+         "bayID":"3416",
+         "streetMarkerID":"6265S",
+         "description":{
+            "description1":"4P MTR M-SAT 7.30-8.30"
+         }
+      },
+      {
+         "distance":"585",
+         "lat":"-37.80772157855816",
+         "long":"144.96626523007518",
+         "bayID":"3410",
+         "streetMarkerID":"6259S",
+         "description":{
+            "description1":"4P MTR M-SAT 7.30-8.30"
+         }
+      },
+      {
+         "distance":"598",
+         "lat":"-37.80735089260331",
+         "long":"144.96592196065524",
+         "bayID":"2754",
+         "streetMarkerID":"4594E",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30"
+         }
+      },
+      {
+         "distance":"598",
+         "lat":"-37.807680383913905",
+         "long":"144.96640504611318",
+         "bayID":"3404",
+         "streetMarkerID":"6253S",
+         "description":{
+            "description1":"4P MTR M-SAT 7.30-8.30"
+         }
+      },
+      {
+         "distance":"548",
+         "lat":"-37.807670399778175",
+         "long":"144.9664388087702",
+         "bayID":"3402",
+         "streetMarkerID":"6251S",
+         "description":{
+            "description1":"4P MTR M-SAT 7.30-8.30"
+         }
+      },
+      {
+         "distance":"574",
+         "lat":"-37.807559275525335",
+         "long":"144.96589502708156",
+         "bayID":"2750",
+         "streetMarkerID":"4586E",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30"
+         }
+      },
+      {
+         "distance":"572",
+         "lat":"-37.807762829410166",
+         "long":"144.96612510396102",
+         "bayID":"3418",
+         "streetMarkerID":"6267S",
+         "description":{
+            "description1":"4P MTR M-SAT 7.30-8.30"
+         }
+      },
+      {
+         "distance":"590",
+         "lat":"-37.8111698947865",
+         "long":"144.96637794247437",
+         "bayID":"2325",
+         "streetMarkerID":"2893S",
+         "description":{
+            "description1":"2PDis AOT 9.30 - 23.59"
+         }
+      },
+      {
+         "distance":"459",
+         "lat":"-37.81086765834064",
+         "long":"144.96676222197016",
+         "bayID":"2321",
+         "streetMarkerID":"2884N",
+         "description":{
+            "description1":"1P MTR M-F 7:30-16:00",
+            "description2":"CW TOW M-F 16:00-18:30",
+            "description3":"2P MTR M-SAT 18.30 - 20.30",
+            "description4":"1P MTR SAT 7.30-6.30PM",
+            "description5":"1P SUN 7:00-18:30"
+         }
+      },
+      {
+         "distance":"472",
+         "lat":"-37.810907523740994",
+         "long":"144.9666268212244",
+         "bayID":"2323",
+         "streetMarkerID":"2888N",
+         "description":{
+            "description1":"1P MTR M-F 7:30-16:00",
+            "description2":"CW TOW M-F 16:00-18:30",
+            "description3":"2P MTR M-SAT 18.30 - 20.30",
+            "description4":"1P MTR SAT 7.30-6.30PM",
+            "description5":"1P SUN 7:00-18:30"
+         }
+      },
+      {
+         "distance":"576",
+         "lat":"-37.811207387820446",
+         "long":"144.9662508405088",
+         "bayID":"2327",
+         "streetMarkerID":"2897S",
+         "description":{
+            "description1":"LZ 15M M-F 9:30-19:30",
+            "description2":"2P MTR SAT 7:30-20:30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"584",
+         "lat":"-37.81118873125521",
+         "long":"144.96631406952298",
+         "bayID":"2326",
+         "streetMarkerID":"2895S",
+         "description":{
+            "description1":"LZ 15M M-F 9:30-19:30",
+            "description2":"2P MTR SAT 7:30-20:30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"572",
+         "lat":"-37.81122660037914",
+         "long":"144.9661858851592",
+         "bayID":"2328",
+         "streetMarkerID":"2899S",
+         "description":{
+            "description1":"LZ 15M M-F 9:30-19:30",
+            "description2":"2P MTR SAT 7:30-20:30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"480",
+         "lat":"-37.81093248766649",
+         "long":"144.96654227147445",
+         "bayID":"2324",
+         "streetMarkerID":"2890N",
+         "description":{
+            "description1":"1P MTR M-F 7:30-16:00",
+            "description2":"CW TOW M-F 16:00-18:30",
+            "description3":"2P MTR M-SAT 18.30 - 20.30",
+            "description4":"1P MTR SAT 7.30-6.30PM",
+            "description5":"1P SUN 7:00-18:30"
+         }
+      },
+      {
+         "distance":"466",
+         "lat":"-37.8108887374072",
+         "long":"144.96669066831026",
+         "bayID":"2322",
+         "streetMarkerID":"2886N",
+         "description":{
+            "description1":"1P MTR M-F 7:30-16:00",
+            "description2":"CW TOW M-F 16:00-18:30",
+            "description3":"2P MTR M-SAT 18.30 - 20.30",
+            "description4":"1P MTR SAT 7.30-6.30PM",
+            "description5":"1P SUN 7:00-18:30"
+         }
+      },
+      {
+         "distance":"766",
+         "lat":"-37.80867167411489",
+         "long":"144.9660838980326",
+         "bayID":"2738",
+         "streetMarkerID":"4559W",
+         "description":{
+            "description1":"2P DIS 7.30AM TO 8.30PM",
+            "description2":"P DIS AOT 8:31PM-11:59PM"
+         }
+      },
+      {
+         "distance":"501",
+         "lat":"-37.80916993592463",
+         "long":"144.96551450156215",
+         "bayID":"2131",
+         "streetMarkerID":"3707S",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30",
+            "description2":"2P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"511",
+         "lat":"-37.80809601216072",
+         "long":"144.9660677529875",
+         "bayID":"2746",
+         "streetMarkerID":"4574E",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30"
+         }
+      },
+      {
+         "distance":"565",
+         "lat":"-37.80893653864281",
+         "long":"144.97180131953928",
+         "bayID":"628",
+         "streetMarkerID":"87W",
+         "description":{
+            "description1":"1P MTR M-SAT 7:30-18:30",
+            "description2":"2P MTR M-SAT 18.30 - 20.30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"555",
+         "lat":"-37.808825513519224",
+         "long":"144.97187528196002",
+         "bayID":"642",
+         "streetMarkerID":"C112",
+         "description":{
+            "description1":"3P MTR M-SAT 7:30-20:30",
+            "description2":"3P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"527",
+         "lat":"-37.80858937372206",
+         "long":"144.97176686215866",
+         "bayID":"651",
+         "streetMarkerID":"C148",
+         "description":{
+            "description1":"3P MTR M-SAT 7:30-20:30",
+            "description2":"3P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"485",
+         "lat":"-37.808232861867594",
+         "long":"144.97160314119196",
+         "bayID":"657",
+         "streetMarkerID":"C172",
+         "description":{
+            "description1":"3P MTR M-SAT 7:30-20:30",
+            "description2":"3P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"385",
+         "lat":"-37.80868832126183",
+         "long":"144.96667506755247",
+         "bayID":"4494",
+         "streetMarkerID":"3688N",
+         "description":{
+            "description1":"LZ 30MINS 9.30-4.30 M-F",
+            "description2":"LZ 30MINS 6.30-7.30 M-F",
+            "description3":"LZ 30MINS 7.30 - 7.30 Sat & Sun"
+         }
+      },
+      {
+         "distance":"553",
+         "lat":"-37.80883571544522",
+         "long":"144.97175471476578",
+         "bayID":"632",
+         "streetMarkerID":"91W",
+         "description":{
+            "description1":"1P MTR M-SAT 7:30-18:30",
+            "description2":"2P MTR M-SAT 18.30 - 20.30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"393",
+         "lat":"-37.80870708888169",
+         "long":"144.96661078530911",
+         "bayID":"4495",
+         "streetMarkerID":"3690N",
+         "description":{
+            "description1":"LZ 30MINS 9.30-4.30 M-F",
+            "description2":"LZ 30MINS 6.30-7.30 M-F",
+            "description3":"LZ 30MINS 7.30 - 7.30 Sat & Sun"
+         }
+      },
+      {
+         "distance":"399",
+         "lat":"-37.80872620102045",
+         "long":"144.9665460954397",
+         "bayID":"4496",
+         "streetMarkerID":"3692N",
+         "description":{
+            "description1":"1/4P 9.30am-4.30pm M-F",
+            "description2":"1/4P M-F 18:30-19:30",
+            "description3":"1/4P 7.30am -7.30pm Sat & Sun"
+         }
+      },
+      {
+         "distance":"553",
+         "lat":"-37.80880200226363",
+         "long":"144.97186447690888",
+         "bayID":"643",
+         "streetMarkerID":"C116",
+         "description":{
+            "description1":"3P MTR M-SAT 7:30-20:30",
+            "description2":"3P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"564",
+         "lat":"-37.8088965609683",
+         "long":"144.97190792792816",
+         "bayID":"639",
+         "streetMarkerID":"C100",
+         "description":{
+            "description1":"3P MTR M-SAT 7:30-20:30",
+            "description2":"3P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"517",
+         "lat":"-37.80803999840939",
+         "long":"144.96604209597555",
+         "bayID":"2747",
+         "streetMarkerID":"4576E",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30"
+         }
+      },
+      {
+         "distance":"470",
+         "lat":"-37.81116388797592",
+         "long":"144.9673469528956",
+         "bayID":"958",
+         "streetMarkerID":"C830",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30",
+            "description2":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"476",
+         "lat":"-37.81123421045719",
+         "long":"144.96737901042525",
+         "bayID":"955",
+         "streetMarkerID":"C824",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30",
+            "description2":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"623",
+         "lat":"-37.811246410797146",
+         "long":"144.9675098136646",
+         "bayID":"888",
+         "streetMarkerID":"816E",
+         "description":{
+            "description1":"1P MTR M-SAT 7:30-18:30",
+            "description2":"2P MTR M-SAT 18.30 - 20.30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"476",
+         "lat":"-37.811210911027",
+         "long":"144.9673683886752",
+         "bayID":"956",
+         "streetMarkerID":"C826",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30",
+            "description2":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"473",
+         "lat":"-37.8111871873981",
+         "long":"144.96735757463318",
+         "bayID":"957",
+         "streetMarkerID":"C828",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30",
+            "description2":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"481",
+         "lat":"-37.811257509886595",
+         "long":"144.96738963162676",
+         "bayID":"954",
+         "streetMarkerID":"C822",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30",
+            "description2":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"603",
+         "lat":"-37.81231930547644",
+         "long":"144.96775142225908",
+         "bayID":"875",
+         "streetMarkerID":"771W",
+         "description":{
+            "description1":"1P MTR M-SAT 7:30-18:30",
+            "description2":"2P MTR M-SAT 18.30 - 20.30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"695",
+         "lat":"-37.81246042749984",
+         "long":"144.96806467179186",
+         "bayID":"874",
+         "streetMarkerID":"770E",
+         "description":{
+            "description1":"P DIS AOT 20:30 TO 23:59",
+            "description2":"2P DIS 7.30 - 8.30PM"
+         }
+      },
+      {
+         "distance":"568",
+         "lat":"-37.81205654670124",
+         "long":"144.96763232945378",
+         "bayID":"8348",
+         "streetMarkerID":"783W",
+         "description":{
+            "description1":"LZ 15M M-F 7:30-19:30",
+            "description2":"1P SAT 7:30-19:30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"591",
+         "lat":"-37.81221754261522",
+         "long":"144.96770542370388",
+         "bayID":"877",
+         "streetMarkerID":"775W",
+         "description":{
+            "description1":"1P MTR M-SAT 7:30-18:30",
+            "description2":"2P MTR M-SAT 18.30 - 20.30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"579",
+         "lat":"-37.812111639871596",
+         "long":"144.9676573100245",
+         "bayID":"8347",
+         "streetMarkerID":"781W",
+         "description":{
+            "description1":"LZ 15M M-F 7:30-19:30",
+            "description2":"1P SAT 7:30-19:30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"612",
+         "lat":"-37.81243621759688",
+         "long":"144.9678039100279",
+         "bayID":"8346",
+         "streetMarkerID":"767Wa",
+         "description":{
+            "description1":"LZ 15M M-F 7:30-19:30"
+         }
+      },
+      {
+         "distance":"609",
+         "lat":"-37.812368780424066",
+         "long":"144.96777381541787",
+         "bayID":"873",
+         "streetMarkerID":"769W",
+         "description":{
+            "description1":"P DIS ONLY 20.30 - 23.59",
+            "description2":"2P DIS 7.30AM TO 8.30PM"
+         }
+      },
+      {
+         "distance":"744",
+         "lat":"-37.81348501071899",
+         "long":"144.96841138944723",
+         "bayID":"933",
+         "streetMarkerID":"C740",
+         "description":{
+            "description1":"1P MTR M-SAT 7:30-18:30",
+            "description2":"2P MTR M-SAT 18.30 - 20.30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"711",
+         "lat":"-37.813204770295954",
+         "long":"144.96828258220722",
+         "bayID":"943",
+         "streetMarkerID":"C768",
+         "description":{
+            "description1":"1P MTR M-SAT 7:30-18:30",
+            "description2":"2P MTR M-SAT 18.30 - 20.30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"738",
+         "lat":"-37.813432061253614",
+         "long":"144.9683864485381",
+         "bayID":"934",
+         "streetMarkerID":"C744",
+         "description":{
+            "description1":"1P MTR M-SAT 7:30-18:30",
+            "description2":"2P MTR M-SAT 18.30 - 20.30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"763",
+         "lat":"-37.813645541218705",
+         "long":"144.96848423444078",
+         "bayID":"927",
+         "streetMarkerID":"C722",
+         "description":{
+            "description1":"1P MTR M-SAT 7:30-18:30",
+            "description2":"2P MTR M-SAT 18.30 - 20.30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"957",
+         "lat":"-37.814039708455965",
+         "long":"144.96879153410495",
+         "bayID":"866",
+         "streetMarkerID":"694E",
+         "description":{
+            "description1":"LZ 15M M-F 7:30-16:00",
+            "description2":"2P MTR M-F 4.00PM - 8.30PM",
+            "description3":"2P MTR SAT 7:30-20:30"
+         }
+      },
+      {
+         "distance":"761",
+         "lat":"-37.81362355936621",
+         "long":"144.96847414382597",
+         "bayID":"928",
+         "streetMarkerID":"C724",
+         "description":{
+            "description1":"1P MTR M-SAT 7:30-18:30",
+            "description2":"2P MTR M-SAT 18.30 - 20.30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"829",
+         "lat":"-37.81340305141516",
+         "long":"144.96849961317562",
+         "bayID":"869",
+         "streetMarkerID":"738E",
+         "description":{
+            "description1":"2P DIS 7.30 - 8.30PM"
+         }
+      },
+      {
+         "distance":"495",
+         "lat":"-37.81137803962183",
+         "long":"144.96744465926923",
+         "bayID":"950",
+         "streetMarkerID":"C806",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30",
+            "description2":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"486",
+         "lat":"-37.81133408286653",
+         "long":"144.96729994151607",
+         "bayID":"886",
+         "streetMarkerID":"797W",
+         "description":{
+            "description1":"1P MTR M-SAT 7:30-18:30",
+            "description2":"2P MTR M-SAT 18.30 - 20.30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"501",
+         "lat":"-37.81142548592456",
+         "long":"144.96746628857727",
+         "bayID":"948",
+         "streetMarkerID":"C798",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30",
+            "description2":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"492",
+         "lat":"-37.81135346943457",
+         "long":"144.96743345892835",
+         "bayID":"951",
+         "streetMarkerID":"C810",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30",
+            "description2":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"493",
+         "lat":"-37.81138739382134",
+         "long":"144.96732451137103",
+         "bayID":"885",
+         "streetMarkerID":"795W",
+         "description":{
+            "description1":"1P MTR M-SAT 7:30-18:30",
+            "description2":"2P MTR M-SAT 18.30 - 20.30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"490",
+         "lat":"-37.81133017001849",
+         "long":"144.96742283713283",
+         "bayID":"952",
+         "streetMarkerID":"C814",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30",
+            "description2":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"498",
+         "lat":"-37.8114017627735",
+         "long":"144.9674554739191",
+         "bayID":"949",
+         "streetMarkerID":"C802",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30",
+            "description2":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"487",
+         "lat":"-37.811306870582015",
+         "long":"144.96741221649182",
+         "bayID":"953",
+         "streetMarkerID":"C818",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30",
+            "description2":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"754",
+         "lat":"-37.81195047079741",
+         "long":"144.96782860739688",
+         "bayID":"879",
+         "streetMarkerID":"780E",
+         "description":{
+            "description1":"LZ 15M M-F 7:30-19:30",
+            "description2":"1P SAT 7:30-19:30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"518",
+         "lat":"-37.81157057108945",
+         "long":"144.96753234404272",
+         "bayID":"946",
+         "streetMarkerID":"C790",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30",
+            "description2":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"524",
+         "lat":"-37.81161963958506",
+         "long":"144.96755496945224",
+         "bayID":"945",
+         "streetMarkerID":"C786",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30",
+            "description2":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"512",
+         "lat":"-37.811548168895655",
+         "long":"144.96739859882695",
+         "bayID":"882",
+         "streetMarkerID":"789W",
+         "description":{
+            "description1":"1P MTR M-SAT 7:30-18:30",
+            "description2":"2P MTR M-SAT 18.30 - 20.30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"518",
+         "lat":"-37.81160147807964",
+         "long":"144.9674231907233",
+         "bayID":"881",
+         "streetMarkerID":"787W",
+         "description":{
+            "description1":"1P MTR M-SAT 7:30-18:30",
+            "description2":"2P MTR M-SAT 18.30 - 20.30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"594",
+         "lat":"-37.81171009882618",
+         "long":"144.9680968607801",
+         "bayID":"1838",
+         "streetMarkerID":"2529S",
+         "description":{
+            "description1":"LZ 15MINS 722 7.30-22.00"
+         }
+      },
+      {
+         "distance":"505",
+         "lat":"-37.81149443594989",
+         "long":"144.96737383811362",
+         "bayID":"883",
+         "streetMarkerID":"791W",
+         "description":{
+            "description1":"1P MTR M-SAT 7:30-18:30",
+            "description2":"2P MTR M-SAT 18.30 - 20.30",
+            "description3":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"599",
+         "lat":"-37.81169320961345",
+         "long":"144.96815437038526",
+         "bayID":"1837",
+         "streetMarkerID":"2527S",
+         "description":{
+            "description1":"LZ 15MINS 722 7.30-22.00"
+         }
+      },
+      {
+         "distance":"589",
+         "lat":"-37.81172700693746",
+         "long":"144.96803930487232",
+         "bayID":"1839",
+         "streetMarkerID":"2531S",
+         "description":{
+            "description1":"LZ 15MINS 722 7.30-22.00"
+         }
+      },
+      {
+         "distance":"383",
+         "lat":"-37.810709013284594",
+         "long":"144.9676187371634",
+         "bayID":"2488",
+         "streetMarkerID":"C2874",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30",
+            "description2":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"496",
+         "lat":"-37.81075192758727",
+         "long":"144.96782788227944",
+         "bayID":"2314",
+         "streetMarkerID":"2855S",
+         "description":{
+            "description1":"1P MTR M-F 9:30-18:30",
+            "description2":"2P MTR M-SAT 6:30PM-8:30PM",
+            "description3":"1P MTR SAT 7.30-6.30PM",
+            "description4":"1P SUN 7:30-18:30"
+         }
+      },
+      {
+         "distance":"386",
+         "lat":"-37.810717460357736",
+         "long":"144.96758983216253",
+         "bayID":"8890",
+         "streetMarkerID":"C2876",
+         "description":{
+            "description1":"2P MTR M-SAT 7:30-20:30",
+            "description2":"1P SUN 7:30-18:30"
+         }
+      }
+   ]
+}
