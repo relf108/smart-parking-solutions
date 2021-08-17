@@ -86,7 +86,7 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
 
   Future<void> getCheckSpace(
       int bayID, DateTime bookingtime, double duration, String user) async {
-    String urlstring = 'http://192.168.87.86:8888/checkSpace?bayid=' +
+    String urlstring = 'http://geekayk.ddns.net:8888/checkSpace?bayid=' +
         bayID.toString() +
         '&datetime=' +
         bookingtime.toString() +
