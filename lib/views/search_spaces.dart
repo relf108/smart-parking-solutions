@@ -22,7 +22,7 @@ class SearchSpacesView extends StatefulWidget {
 Future<String> makeGetRequest(
     String address, String radius, BuildContext context) async {
   print('Address: $address Radius $radius');
-  String urlstring = 'http://192.168.87.86:8888/searchSpaces?address=' +
+  String urlstring = 'http://geekayk.ddns.net:8888/searchSpaces?address=' +
       address +
       '&distance=' +
       radius;

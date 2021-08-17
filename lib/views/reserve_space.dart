@@ -27,6 +27,28 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
 
   static get key => null;
 
+  Future<void> getReserveSpace(
+      int bayID, DateTime bookingtime, double duration, String user) async {
+    //code here
+  }
+
+  Future<void> getCheckSpace(
+      int bayID, DateTime bookingtime, double duration, String user) async {
+    String urlstring = 'http://geekayk.ddns.net:8888/checkSpace?bayid=' +
+        bayID.toString() +
+        '&datetime=' +
+        bookingtime.toString() +
+        '&duration=' +
+        duration.toString();
+    final url = Uri.parse(urlstring);
+    Response response = await get(url);
+    if (response.statusCode == 200) {
+      getReserveSpace(bayID, bookingtime, duration, user);
+    } else {
+      //error code for /checkSpace
+    }
+  }
+
   Future<void> readJson(String jsonresponse) async {
     final String response = jsonresponse;
     final responsedecoded = await json.decode(response);
@@ -89,6 +111,7 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
                 subtitle: Text('Restrictions: ' +
                     _bays[index]["description"]["description1"]),
                 isThreeLine: true,
+                //onTap: () async {getCheckSpace(_bays[index]['bayID'], bookingtime, duration, user)},
               ),
             );
           } else if (_bays[index]["description"].length == 2) {
