@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:smart_parking_solutions/views/booking_conf.dart';
 
+import '../main.dart';
+
 String testuser = '102145123@student.swin.edu.au';
 
 ///EXAMPLE STATELESS WIDGET
@@ -26,11 +28,12 @@ class ReserveSpaceView extends StatefulWidget {
 /// This is the private State class that goes with MyStatefulWidget.
 class _ReserveSpaceView extends State<ReserveSpaceView> {
   late TextEditingController _controller;
+  late AnimationController controller;
   List _bays = [];
 
   Future<void> getReserveSpace(
       int bayID, DateTime bookingtime, double duration, String user) async {
-    String urlstring = 'http://geekayk.ddns.net:8888/reserveSpace?bayid=' +
+    String urlstring = 'http://192.168.87.86:8888/reserveSpace?bayid=' +
         bayID.toString() +
         '&email=' +
         user +
@@ -40,8 +43,10 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
         duration.toString();
     print(urlstring);
     final url = Uri.parse(urlstring);
+    Navigator.pop(context);
     Response response = await get(url);
     if (response.statusCode == 200) {
+      CircularProgressIndicator(value: null);
       Navigator.push<MaterialPageRoute>(context,
           MaterialPageRoute(builder: (context) {
         return BookingConfView(
@@ -50,16 +55,17 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
       }));
     } else {
       print('fail');
+      Navigator.pop(context);
       return showDialog<void>(
         context: context,
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('/checkSpace Endpoint Failure'),
+            title: Text('/reserveSpace Endpoint Failure'),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  Text('Unable to check BayID: ' + bayID.toString()),
+                  Text('Unable to reserve BayID: ' + bayID.toString()),
                   Text(''),
                   Text('Please go back and try booking another spot.'),
                   Text(''),
@@ -86,7 +92,7 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
 
   Future<void> getCheckSpace(
       int bayID, DateTime bookingtime, double duration, String user) async {
-    String urlstring = 'http://geekayk.ddns.net:8888/checkSpace?bayid=' +
+    String urlstring = 'http://192.168.87.86:8888/checkSpace?bayid=' +
         bayID.toString() +
         '&datetime=' +
         bookingtime.toString() +
@@ -98,6 +104,7 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
     if (response.statusCode == 200) {
       getReserveSpace(bayID, bookingtime, duration, user);
     } else {
+      Navigator.pop(context);
       print('fail');
       return showDialog<void>(
         context: context,
@@ -200,17 +207,45 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
                         _bays[index]["description"]["description1"]),
                     trailing: InkWell(
                       onTap: () async {
-                        getCheckSpace(int.parse(_bays[index]["bayID"]),
-                            bookingdate, duration, testuser);
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Confirm Booking'),
+                            content: Text(
+                                'Are you sure you would like to book Parking Bay ' +
+                                    _bays[index]["streetMarkerID"].toString() +
+                                    ' at your chosen time?'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'Cancel'),
+                                child: const Text('No'),
+                              ),
+                              TextButton(
+                                onPressed: () async {
+                                  Navigator.pop(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return loading;
+                                    },
+                                  );
+                                  getCheckSpace(
+                                      int.parse(_bays[index]["bayID"]),
+                                      bookingdate,
+                                      duration,
+                                      testuser);
+                                },
+                                child: const Text('Yes'),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                       child: Icon(Icons.book_online),
                     ),
                   )
                 ],
-                // onTap: () async {
-                //   getCheckSpace(
-                //       _bays[index]['bayID'], bookingdate, duration, testuser);
-                // },
               ),
             );
           } else if (_bays[index]["description"].length == 2) {
@@ -231,8 +266,40 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
                         _bays[index]["description"]["description2"]),
                     trailing: InkWell(
                       onTap: () async {
-                        getCheckSpace(int.parse(_bays[index]["bayID"]),
-                            bookingdate, duration, testuser);
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Confirm Booking'),
+                            content: Text(
+                                'Are you sure you would like to book Parking Bay ' +
+                                    _bays[index]["streetMarkerID"].toString() +
+                                    ' at your chosen time?'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'Cancel'),
+                                child: const Text('No'),
+                              ),
+                              TextButton(
+                                onPressed: () async {
+                                  Navigator.pop(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return loading;
+                                    },
+                                  );
+                                  getCheckSpace(
+                                      int.parse(_bays[index]["bayID"]),
+                                      bookingdate,
+                                      duration,
+                                      testuser);
+                                },
+                                child: const Text('Yes'),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                       child: Icon(Icons.book_online),
                     ),
@@ -260,8 +327,40 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
                         _bays[index]["description"]["description3"]),
                     trailing: InkWell(
                       onTap: () async {
-                        getCheckSpace(int.parse(_bays[index]["bayID"]),
-                            bookingdate, duration, testuser);
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Confirm Booking'),
+                            content: Text(
+                                'Are you sure you would like to book Parking Bay ' +
+                                    _bays[index]["streetMarkerID"].toString() +
+                                    ' at your chosen time?'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'Cancel'),
+                                child: const Text('No'),
+                              ),
+                              TextButton(
+                                onPressed: () async {
+                                  Navigator.pop(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return loading;
+                                    },
+                                  );
+                                  getCheckSpace(
+                                      int.parse(_bays[index]["bayID"]),
+                                      bookingdate,
+                                      duration,
+                                      testuser);
+                                },
+                                child: const Text('Yes'),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                       child: Icon(Icons.book_online),
                     ),
@@ -291,8 +390,40 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
                         _bays[index]["description"]["description4"]),
                     trailing: InkWell(
                       onTap: () async {
-                        getCheckSpace(int.parse(_bays[index]["bayID"]),
-                            bookingdate, duration, testuser);
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Confirm Booking'),
+                            content: Text(
+                                'Are you sure you would like to book Parking Bay ' +
+                                    _bays[index]["streetMarkerID"].toString() +
+                                    ' at your chosen time?'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'Cancel'),
+                                child: const Text('No'),
+                              ),
+                              TextButton(
+                                onPressed: () async {
+                                  Navigator.pop(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return loading;
+                                    },
+                                  );
+                                  getCheckSpace(
+                                      int.parse(_bays[index]["bayID"]),
+                                      bookingdate,
+                                      duration,
+                                      testuser);
+                                },
+                                child: const Text('Yes'),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                       child: Icon(Icons.book_online),
                     ),
@@ -324,8 +455,40 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
                         _bays[index]["description"]["description5"]),
                     trailing: InkWell(
                       onTap: () async {
-                        getCheckSpace(int.parse(_bays[index]["bayID"]),
-                            bookingdate, duration, testuser);
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Confirm Booking'),
+                            content: Text(
+                                'Are you sure you would like to book Parking Bay ' +
+                                    _bays[index]["streetMarkerID"].toString() +
+                                    ' at your chosen time?'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'Cancel'),
+                                child: const Text('No'),
+                              ),
+                              TextButton(
+                                onPressed: () async {
+                                  Navigator.pop(context);
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return loading;
+                                    },
+                                  );
+                                  getCheckSpace(
+                                      int.parse(_bays[index]["bayID"]),
+                                      bookingdate,
+                                      duration,
+                                      testuser);
+                                },
+                                child: const Text('Yes'),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                       child: Icon(Icons.book_online),
                     ),

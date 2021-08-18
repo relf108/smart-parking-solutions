@@ -27,9 +27,10 @@ class _CreatePasswordViewState extends State<CreatePasswordView> {
         ),
         ElevatedButton(
             onPressed: () => {
-                // _passwordController.text
-                // email
-                ///TODO Set password on existing user
+                  // _passwordController.text
+                  // email
+                  // ignore: todo
+                  ///TODO Set password on existing user
                 },
             child: Text('Submit'))
       ])),

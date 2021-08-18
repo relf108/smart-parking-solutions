@@ -4,6 +4,8 @@ import 'package:smart_parking_solutions/views/reserve_space.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart';
 
+import '../main.dart';
+
 class SearchSpacesView extends StatefulWidget {
   @override
   State<SearchSpacesView> createState() => _SearchSpacesView();
@@ -11,17 +13,17 @@ class SearchSpacesView extends StatefulWidget {
 
 Future<String> makeGetRequest(String address, String radius, DateTime date,
     DateTime time, double duration, BuildContext context) async {
-  CircularProgressIndicator();
   print('Address: $address Radius $radius');
   var bookingdatetime = new DateTime(date.year, date.month, date.day, time.hour,
       time.minute, time.second, time.hashCode);
   print(bookingdatetime);
-  String urlstring = 'http://geekayk.ddns.net:8888/searchSpaces?address=' +
+  String urlstring = 'http://192.168.87.86:8888/searchSpaces?address=' +
       address +
       '&distance=' +
       radius;
   final url = Uri.parse(urlstring);
   Response response = await get(url);
+  Navigator.pop(context);
   Navigator.push<MaterialPageRoute>(context,
       MaterialPageRoute(builder: (context) {
     return ReserveSpaceView(
@@ -35,6 +37,7 @@ Future<String> makeGetRequest(String address, String radius, DateTime date,
 
 /// This is the private State class that goes with MyStatefulWidget.
 class _SearchSpacesView extends State<SearchSpacesView> {
+  final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   final address = TextEditingController();
   late int _radius = 100;
@@ -69,6 +72,7 @@ class _SearchSpacesView extends State<SearchSpacesView> {
   Widget build(BuildContext context) {
     final ratioGen = new ScreenRatioGenerator(context: context);
     return Scaffold(
+        key: scaffoldKey,
         appBar: AppBar(
           toolbarHeight: ratioGen.screenHeightPercent(percent: 6),
           title: const Text('Search Parking Spaces'),
@@ -298,6 +302,12 @@ class _SearchSpacesView extends State<SearchSpacesView> {
                                       ratioGen.screenWidthPercent(percent: 30),
                                   child: ElevatedButton(
                                       onPressed: () async {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return loading;
+                                          },
+                                        );
                                         makeGetRequest(
                                             address.text,
                                             _radius.toString(),

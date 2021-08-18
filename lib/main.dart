@@ -1,16 +1,14 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart';
 import 'package:smart_parking_solutions/views/sign_in_view.dart';
 import 'package:smart_parking_solutions/views/search_spaces.dart';
 import 'package:smart_parking_solutions/views/view.dart';
-import 'package:smart_parking_solutions/views/booking_conf.dart';
 import 'package:smart_parking_solutions/views/reserve_space.dart';
 import 'package:smart_parking_solutions/views/http_example.dart';
 import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
+import 'package:loading_animations/loading_animations.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 // ignore: implementation_imports
@@ -24,6 +22,14 @@ double duration = 1.0;
 Future<void> main() async {
   runApp(SmartParkingSolutions());
 }
+
+AlertDialog loading = AlertDialog(
+  backgroundColor: spsblue,
+  content: LoadingBouncingGrid.square(
+    backgroundColor: spsblue,
+    borderColor: Color(0xff4169E1),
+  ),
+);
 
 Map<int, Color> color = {
   50: Color.fromRGBO(25, 25, 112, .1),
@@ -83,6 +89,7 @@ class _HomePageState extends State<HomePage> {
     if (Platform.isAndroid || Platform.isIOS) {
       await launch(url);
     } else {
+      // ignore: todo
       //TODO pop browser tab on desktop/web
     }
   }

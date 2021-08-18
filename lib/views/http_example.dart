@@ -1,11 +1,6 @@
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_parking_solutions/views/sign_in_view.dart';
-import 'package:smart_parking_solutions/views/search_spaces.dart';
-import 'package:smart_parking_solutions/views/create_password_view.dart';
-import 'package:smart_parking_solutions/widgets/json_grid.dart';
 import 'package:http/http.dart';
-import 'dart:convert';
 
 const urlPrefix = 'http://10.0.2.2:5000';
 String responsestring = '';
@@ -16,7 +11,7 @@ Future<String> makeGetRequest(String user) async {
   print('Status code: ${response.statusCode}');
   print('Headers: ${response.headers}');
   print('Body: ${response.body}');
-  responsestring = await response.body;
+  responsestring = response.body;
   return responsestring;
 }
 
@@ -30,7 +25,6 @@ class HttpExample extends StatefulWidget {
 class _HttpExample extends State<HttpExample> {
   late TextEditingController _controller;
   final _formKey = GlobalKey<FormState>();
-  String _results = '';
   @override
   void initState() {
     super.initState();
