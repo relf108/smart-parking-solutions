@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.smart_parking_solutions">
+    <uses-permission android:name="android.permission.INTERNET"/> <!-- Add this -->
    <application
         android:label="smart_parking_solutions"
         android:icon="@mipmap/ic_launcher">
