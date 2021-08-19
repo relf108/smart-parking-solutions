@@ -2,11 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:smart_parking_solutions/views/sign_in_view.dart';
-import 'package:smart_parking_solutions/views/search_spaces.dart';
+import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:smart_parking_solutions/views/view.dart';
 import 'package:smart_parking_solutions/views/reserve_space.dart';
-import 'package:smart_parking_solutions/views/http_example.dart';
 import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 import 'package:loading_animations/loading_animations.dart';
 
@@ -16,7 +14,7 @@ import 'views/booking_conf.dart';
 // ignore: implementation_imports
 //import 'package:smart_parking_solutions_common/src/credentials.dart';
 
-const localhost = 'geekayk.ddns.net';
+const localhost = '192.168.87.86';
 String testuser = 'tristan.sutton@gmail.com';
 var bookingdate = new DateTime.now();
 String duration = '1:30:00';
@@ -84,6 +82,7 @@ Future<void> readJson() async {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _formKey = GlobalKey<FormState>();
   Future<void> _launchURL() async {
     // const localhost = 'localhost';
     final url =
@@ -102,7 +101,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -120,30 +119,7 @@ class _HomePageState extends State<HomePage> {
             Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [Text('---Sign in with---')]),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Container(
-                height: (MediaQuery.of(context).size.height) / 50,
-              )
-            ]),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                    onPressed: () => {
-                          Navigator.push<MaterialPageRoute>(context,
-                              MaterialPageRoute(builder: (context) {
-                            return SignInView();
-                          }))
-                        },
-                    child: Image.asset('assets/email.png',
-                        height: (MediaQuery.of(context).size.height) / 25)),
-                ElevatedButton(
-                  onPressed: () async => {await _launchURL()},
-                  child: Image.asset('assets/whitegoogle-512.png',
-                      height: (MediaQuery.of(context).size.height) / 25),
-                ),
-              ],
-            ),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: []),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Container(
                 height: (MediaQuery.of(context).size.height) / 50,

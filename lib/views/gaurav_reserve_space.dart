@@ -31,6 +31,8 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
   Future<void> getReserveSpace(int bayID, DateTime bookingtime, String duration,
       String user, String streetmarkerid, String lat, String long) async {
     String formattedDate =
+        DateFormat('yyyy-MM-dd kk:mm:ss').format(bookingtime.toUtc());
+    String localFormattedDate =
         DateFormat('yyyy-MM-dd kk:mm:ss').format(bookingtime);
     print(formattedDate);
     String urlstring = 'http://' +
@@ -53,7 +55,7 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
           MaterialPageRoute(builder: (context) {
         return BookingConfView(
           streetMarkerID: streetmarkerid,
-          bookingdate: formattedDate,
+          bookingdate: localFormattedDate,
           lat: lat,
           long: long,
         );
@@ -141,6 +143,7 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
         itemCount: _bays.length,
         itemBuilder: (context, index) {
           return Card(
+            color: spsblue,
             margin: EdgeInsets.all(10),
             child: ExpansionTile(
               leading: Text(

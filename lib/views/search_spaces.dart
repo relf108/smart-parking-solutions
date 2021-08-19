@@ -15,8 +15,8 @@ class SearchSpacesView extends StatefulWidget {
 Future<void> makeGetRequest(String address, String radius, DateTime date,
     DateTime time, String duration, BuildContext context) async {
   print('Address: $address Radius $radius');
-  var bookingdatetime = new DateTime(date.year, date.month, date.day, time.hour,
-      time.minute, time.second, time.hashCode);
+  var bookingdatetime = DateTime.parse(
+      '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')} ${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:00');
   print(bookingdatetime);
   String urlstring = 'http://' +
       localhost +
@@ -202,8 +202,9 @@ class _SearchSpacesView extends State<SearchSpacesView> {
                                           onConfirm: (date) {
                                         print('confirm $date');
                                         _date =
-                                            '${date.year} - ${date.month} - ${date.day}';
-                                        seldate = date;
+                                            '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+                                        seldate = DateTime.parse(_date);
+                                        print('seldate $seldate');
                                         setState(() {});
                                       },
                                           currentTime: DateTime.now(),
@@ -253,8 +254,9 @@ class _SearchSpacesView extends State<SearchSpacesView> {
                                             onConfirm: (time) {
                                           print('confirm $time');
                                           _time =
-                                              '${time.hour} : ${time.minute}';
-                                          seltime = time;
+                                              '${seldate.year}-${seldate.month.toString().padLeft(2, '0')}-${seldate.day.toString().padLeft(2, '0')} ${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:00';
+                                          seltime = DateTime.parse(_time);
+                                          print('seltime $seltime');
                                           setState(() {});
                                         },
                                             currentTime: DateTime.now(),

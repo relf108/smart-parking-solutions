@@ -30,7 +30,54 @@ class _View extends State<View> {
       setState(() {
         _bookings = responsedecoded['bookings'];
       });
+      for (int i = 0; i < _bookings.length; i++) {
+        var starttimeutc = DateTime.parse(_bookings[i]['startDate']);
+        var endtimeutc = DateTime.parse(_bookings[i]['endDate']);
+        var booktimeutc = DateTime.parse(_bookings[i]['createdDate']);
+        _bookings[i]['startDate'] = starttimeutc.toLocal().toString();
+        _bookings[i]['endDate'] = endtimeutc.toLocal().toString();
+        _bookings[i]['createdDate'] = booktimeutc.toLocal().toString();
+      }
     }
+  }
+
+  Future<void> cancelBooking(int booking) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Cancel Booking?'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Booking Details:'),
+                /*Text('Street Marker ID: ' +
+                    _bookings[booking]['streetMarkerID']),*/
+                Text('Internal Bay ID: ' + _bookings[booking]['bayID']),
+                Text('Booking Start: ' + _bookings[booking]['startDate']),
+                Text('Booking End: ' + _bookings[booking]['endDate']),
+                Text('Booking Made: ' + _bookings[booking]['createdDate']),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Yes'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -60,39 +107,44 @@ class _View extends State<View> {
             Row(
               children: [
                 Container(
-                  height: ratioGen.screenHeightPercent(percent: 50),
+                  height: ratioGen.screenHeightPercent(percent: 75),
                   width: ratioGen.screenWidthPercent(percent: 100),
-                  child: Card(
-                    semanticContainer: true,
-                    clipBehavior: Clip.antiAlias,
-                    child: ListView.builder(
-                        itemCount: _bookings.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
+                  child: ListView.builder(
+                      itemCount: _bookings.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          color: Colors.red,
+                          child: ListTile(
                             leading: Text(
-                                /*_bookings[index]['streetMarkerID']*/ _bookings[
-                                    index]['bayID']),
-                            title: Text(_bookings[index]['startDate']),
+                              /*_bookings[index]['streetMarkerID']*/ _bookings[
+                                  index]['bayID'],
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            title: Text(_bookings[index]['startDate'],
+                                style: TextStyle(color: Colors.white)),
                             subtitle: Text(
                                 'Location: ' /* +
                                 _bookings[index]['lat'] +
                                 ', ' +
                                 _bookings[index]['long']*/
-                                ),
+                                ,
+                                style: TextStyle(color: Colors.white)),
                             trailing: InkWell(
-                              onTap: () => null,
+                              onTap: () async {
+                                cancelBooking(index);
+                              },
                               child: Icon(Icons.arrow_forward),
                             ),
-                          );
-                        }),
-                  ),
-                )
+                          ),
+                        );
+                      }),
+                ),
               ],
             ),
             Row(
               children: [
                 Container(
-                    height: ratioGen.screenHeightPercent(percent: 19),
+                    height: ratioGen.screenHeightPercent(percent: 6),
                     width: ratioGen.screenWidthPercent(percent: 100),
                     child: GestureDetector(
                       onTap: () => {
@@ -115,7 +167,7 @@ class _View extends State<View> {
             Row(
               children: [
                 Container(
-                    height: ratioGen.screenHeightPercent(percent: 19),
+                    height: ratioGen.screenHeightPercent(percent: 6),
                     width: ratioGen.screenWidthPercent(percent: 100),
                     child: GestureDetector(
                       onTap: () => {
