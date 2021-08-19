@@ -159,6 +159,14 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
+                    onPressed: () => {
+                          Navigator.push<MaterialPageRoute>(context,
+                              MaterialPageRoute(builder: (context) {
+                            return View();
+                          }))
+                        },
+                    child: Text('Home')),
+                ElevatedButton(
                   onPressed: () => [
                     Navigator.push<MaterialPageRoute>(context,
                         MaterialPageRoute(builder: (context) {
@@ -170,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                       );
                     }))
                   ],
-                  child: Text('Reserve Spaces'),
+                  child: Text('Reserve'),
                 ),
                 ElevatedButton(
                     onPressed: () => {
@@ -184,7 +192,7 @@ class _HomePageState extends State<HomePage> {
                             );
                           }))
                         },
-                    child: Text('Booking Confirmation')),
+                    child: Text('Confirmation')),
               ],
             ),
           ],
