@@ -1,9 +1,10 @@
+import 'dart:convert';
+
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_parking_solutions/views/reserve_space.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart';
-
 import '../main.dart';
 
 class SearchSpacesView extends StatefulWidget {
@@ -11,19 +12,101 @@ class SearchSpacesView extends StatefulWidget {
   State<SearchSpacesView> createState() => _SearchSpacesView();
 }
 
-Future<String> makeGetRequest(String address, String radius, DateTime date,
-    DateTime time, double duration, BuildContext context) async {
+Future<void> makeGetRequest(String address, String radius, DateTime date,
+    DateTime time, String duration, BuildContext context) async {
   print('Address: $address Radius $radius');
   var bookingdatetime = new DateTime(date.year, date.month, date.day, time.hour,
       time.minute, time.second, time.hashCode);
   print(bookingdatetime);
-  String urlstring = 'http://192.168.87.86:8888/searchSpaces?address=' +
+  String urlstring = 'http://' +
+      localhost +
+      ':8888/searchSpaces?address=' +
       address +
       '&distance=' +
       radius;
   final url = Uri.parse(urlstring);
   Response response = await get(url);
-  Navigator.pop(context);
+  final body = json.decode(response.body);
+  print(response.body);
+  if (body['numberOfSpaces'] > 0) {
+    Navigator.pop(context);
+    Navigator.push<MaterialPageRoute>(context,
+        MaterialPageRoute(builder: (context) {
+      return ReserveSpaceView(
+          jsonresponse: response.body,
+          bookingdate: bookingdate,
+          duration: duration);
+    }));
+  } else if (body['numberOfSpaces'] == 0) {
+    print('fail - no spaces');
+    Navigator.pop(context);
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('No Bays Found'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Uh oh!'),
+                Text(''),
+                Text(
+                    'Seems like there are no parking bays available, maybe try a different address or time?'),
+                Text(''),
+                Text(
+                  'Error: ' + response.body,
+                  style: TextStyle(fontSize: 10),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Okay'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  } else {
+    print('fail');
+    Navigator.pop(context);
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('/searchSpace Endpoint Failure'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Unable to search parking bays.'),
+                Text(''),
+                Text('Please try again, or try different search parameters.'),
+                Text(''),
+                Text(
+                  'Error: ' + response.body,
+                  style: TextStyle(fontSize: 10),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Okay'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
   Navigator.push<MaterialPageRoute>(context,
       MaterialPageRoute(builder: (context) {
     return ReserveSpaceView(
@@ -32,7 +115,6 @@ Future<String> makeGetRequest(String address, String radius, DateTime date,
       duration: duration,
     );
   }));
-  return response.body;
 }
 
 /// This is the private State class that goes with MyStatefulWidget.
@@ -41,7 +123,7 @@ class _SearchSpacesView extends State<SearchSpacesView> {
   final _formKey = GlobalKey<FormState>();
   final address = TextEditingController();
   late int _radius = 100;
-  double _duration = 0.5;
+  String _duration = '0:30:00';
   String _date = "Not set";
   String _time = "Not set";
   late DateTime seldate, seltime;
@@ -214,18 +296,18 @@ class _SearchSpacesView extends State<SearchSpacesView> {
                                     width: ratioGen.screenWidthPercent(
                                         percent: 90),
                                     child: Column(children: <Widget>[
-                                      DropdownButtonFormField<double>(
-                                          style: TextStyle(color: Colors.white),
+                                      DropdownButtonFormField<String>(
+                                          style: TextStyle(color: Colors.black),
                                           value: _duration,
                                           items: [
-                                            0.5,
-                                            1.0,
-                                            1.5,
-                                            2.0,
-                                            2.5,
-                                            3.0,
-                                            3.5,
-                                            4.0
+                                            '0:30:00',
+                                            '1:00:00',
+                                            '1:30:00',
+                                            '2:00:00',
+                                            '2:30:00',
+                                            '3:00:00',
+                                            '3:30:00',
+                                            '4:00:00'
                                           ]
                                               .map((label) => DropdownMenuItem(
                                                     child:

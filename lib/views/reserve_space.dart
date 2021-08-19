@@ -1,16 +1,13 @@
 import 'dart:convert';
-
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:smart_parking_solutions/views/booking_conf.dart';
-
 import '../main.dart';
+import 'package:intl/intl.dart';
 
-String testuser = '102145123@student.swin.edu.au';
+String testuser = 'tristan.sutton@gmail.com';
 
-///EXAMPLE STATELESS WIDGET
-// ignore: must_be_immutable
 class ReserveSpaceView extends StatefulWidget {
   ReserveSpaceView(
       {Key? key,
@@ -20,7 +17,7 @@ class ReserveSpaceView extends StatefulWidget {
       : super(key: key);
   final String jsonresponse;
   final DateTime bookingdate;
-  final double duration;
+  final String duration;
   @override
   State<ReserveSpaceView> createState() => _ReserveSpaceView();
 }
@@ -32,21 +29,25 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
   List _bays = [];
 
   Future<void> getReserveSpace(
-      int bayID, DateTime bookingtime, double duration, String user) async {
-    String urlstring = 'http://192.168.87.86:8888/reserveSpace?bayid=' +
+      int bayID, DateTime bookingtime, String duration, String user) async {
+    String formattedDate =
+        DateFormat('yyyy-MM-dd kk:mm:ss').format(bookingtime);
+    print(formattedDate);
+    String urlstring = 'http://' +
+        localhost +
+        ':8888/reserveSpace?bayID=' +
         bayID.toString() +
         '&email=' +
         user +
         '&startTime=' +
-        bookingtime.toString() +
-        '&duration=' +
-        duration.toString();
+        formattedDate.toString() +
+        'Z&duration=' +
+        duration;
     print(urlstring);
     final url = Uri.parse(urlstring);
-    Navigator.pop(context);
     Response response = await get(url);
-    if (response.statusCode == 200) {
-      CircularProgressIndicator(value: null);
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      Navigator.pop(context);
       Navigator.push<MaterialPageRoute>(context,
           MaterialPageRoute(builder: (context) {
         return BookingConfView(
@@ -58,7 +59,7 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
       Navigator.pop(context);
       return showDialog<void>(
         context: context,
-        barrierDismissible: false, // user must tap button!
+        barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('/reserveSpace Endpoint Failure'),
@@ -70,57 +71,10 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
                   Text('Please go back and try booking another spot.'),
                   Text(''),
                   Text(
-                    'Error: ' + response.body,
-                    style: TextStyle(fontSize: 10),
-                  ),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Okay'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
-
-  Future<void> getCheckSpace(
-      int bayID, DateTime bookingtime, double duration, String user) async {
-    String urlstring = 'http://192.168.87.86:8888/checkSpace?bayid=' +
-        bayID.toString() +
-        '&datetime=' +
-        bookingtime.toString() +
-        '&duration=' +
-        duration.toString();
-    print(urlstring);
-    final url = Uri.parse(urlstring);
-    Response response = await get(url);
-    if (response.statusCode == 200) {
-      getReserveSpace(bayID, bookingtime, duration, user);
-    } else {
-      Navigator.pop(context);
-      print('fail');
-      return showDialog<void>(
-        context: context,
-        barrierDismissible: false, // user must tap button!
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('/checkSpace Endpoint Failure'),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  Text('Unable to check BayID: ' + bayID.toString()),
-                  Text(''),
-                  Text('Please go back and try booking another spot.'),
-                  Text(''),
-                  Text(
-                    'Error: ' + response.body,
+                    'Error: ' +
+                        response.statusCode.toString() +
+                        ' ' +
+                        response.body,
                     style: TextStyle(fontSize: 10),
                   ),
                 ],
@@ -176,334 +130,23 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
     );
   }
 
-  // //Data source yup
-  // List<String> getListElement() {
-  //   var items =
-  //       List<String>.generate(1000, (index) => "LOCATION --- MELBOURNE $index");
-  //   return items;
-  // }
-
   Widget getListView() {
     final DateTime bookingdate = widget.bookingdate;
-    final double duration = widget.duration;
+    final String duration = widget.duration;
     var listView = ListView.builder(
         itemCount: _bays.length,
         itemBuilder: (context, index) {
-          if (_bays[index]["description"].length == 1) {
-            return Card(
-              margin: EdgeInsets.all(10),
-              child: ExpansionTile(
-                leading: Text(
-                  _bays[index]["streetMarkerID"].toString(),
-                  style: TextStyle(color: Colors.black),
-                ),
-                title: Text('Location: ' +
-                    _bays[index]["lat"] +
-                    ', ' +
-                    _bays[index]["long"]),
-                children: <Widget>[
-                  ListTile(
-                    title: Text('Restrictions: ' +
-                        _bays[index]["description"]["description1"]),
-                    trailing: InkWell(
-                      onTap: () async {
-                        showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Confirm Booking'),
-                            content: Text(
-                                'Are you sure you would like to book Parking Bay ' +
-                                    _bays[index]["streetMarkerID"].toString() +
-                                    ' at your chosen time?'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(context, 'Cancel'),
-                                child: const Text('No'),
-                              ),
-                              TextButton(
-                                onPressed: () async {
-                                  Navigator.pop(context);
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return loading;
-                                    },
-                                  );
-                                  getCheckSpace(
-                                      int.parse(_bays[index]["bayID"]),
-                                      bookingdate,
-                                      duration,
-                                      testuser);
-                                },
-                                child: const Text('Yes'),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                      child: Icon(Icons.book_online),
-                    ),
-                  )
-                ],
-              ),
-            );
-          } else if (_bays[index]["description"].length == 2) {
-            return Card(
-              margin: EdgeInsets.all(10),
-              child: ExpansionTile(
-                leading: Text(_bays[index]["streetMarkerID"].toString(),
-                    style: TextStyle(color: Colors.black)),
-                title: Text('Location: ' +
-                    _bays[index]["lat"] +
-                    ', ' +
-                    _bays[index]["long"]),
-                children: <Widget>[
-                  ListTile(
-                    title: Text('Restrictions: ' +
-                        _bays[index]["description"]["description1"] +
-                        ', ' +
-                        _bays[index]["description"]["description2"]),
-                    trailing: InkWell(
-                      onTap: () async {
-                        showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Confirm Booking'),
-                            content: Text(
-                                'Are you sure you would like to book Parking Bay ' +
-                                    _bays[index]["streetMarkerID"].toString() +
-                                    ' at your chosen time?'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(context, 'Cancel'),
-                                child: const Text('No'),
-                              ),
-                              TextButton(
-                                onPressed: () async {
-                                  Navigator.pop(context);
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return loading;
-                                    },
-                                  );
-                                  getCheckSpace(
-                                      int.parse(_bays[index]["bayID"]),
-                                      bookingdate,
-                                      duration,
-                                      testuser);
-                                },
-                                child: const Text('Yes'),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                      child: Icon(Icons.book_online),
-                    ),
-                  )
-                ],
-              ),
-            );
-          } else if (_bays[index]["description"].length == 3) {
-            return Card(
-              margin: EdgeInsets.all(10),
-              child: ExpansionTile(
-                leading: Text(_bays[index]["streetMarkerID"].toString(),
-                    style: TextStyle(color: Colors.black)),
-                title: Text('Location: ' +
-                    _bays[index]["lat"] +
-                    ', ' +
-                    _bays[index]["long"]),
-                children: <Widget>[
-                  ListTile(
-                    title: Text('Restrictions: ' +
-                        _bays[index]["description"]["description1"] +
-                        ', ' +
-                        _bays[index]["description"]["description2"] +
-                        ', ' +
-                        _bays[index]["description"]["description3"]),
-                    trailing: InkWell(
-                      onTap: () async {
-                        showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Confirm Booking'),
-                            content: Text(
-                                'Are you sure you would like to book Parking Bay ' +
-                                    _bays[index]["streetMarkerID"].toString() +
-                                    ' at your chosen time?'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(context, 'Cancel'),
-                                child: const Text('No'),
-                              ),
-                              TextButton(
-                                onPressed: () async {
-                                  Navigator.pop(context);
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return loading;
-                                    },
-                                  );
-                                  getCheckSpace(
-                                      int.parse(_bays[index]["bayID"]),
-                                      bookingdate,
-                                      duration,
-                                      testuser);
-                                },
-                                child: const Text('Yes'),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                      child: Icon(Icons.book_online),
-                    ),
-                  )
-                ],
-              ),
-            );
-          } else if (_bays[index]["description"].length == 4) {
-            return Card(
-              margin: EdgeInsets.all(10),
-              child: ExpansionTile(
-                leading: Text(_bays[index]["streetMarkerID"].toString(),
-                    style: TextStyle(color: Colors.black)),
-                title: Text('Location: ' +
-                    _bays[index]["lat"] +
-                    ', ' +
-                    _bays[index]["long"]),
-                children: <Widget>[
-                  ListTile(
-                    title: Text('Restrictions: ' +
-                        _bays[index]["description"]["description1"] +
-                        ', ' +
-                        _bays[index]["description"]["description2"] +
-                        ', ' +
-                        _bays[index]["description"]["description3"] +
-                        ', ' +
-                        _bays[index]["description"]["description4"]),
-                    trailing: InkWell(
-                      onTap: () async {
-                        showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Confirm Booking'),
-                            content: Text(
-                                'Are you sure you would like to book Parking Bay ' +
-                                    _bays[index]["streetMarkerID"].toString() +
-                                    ' at your chosen time?'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(context, 'Cancel'),
-                                child: const Text('No'),
-                              ),
-                              TextButton(
-                                onPressed: () async {
-                                  Navigator.pop(context);
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return loading;
-                                    },
-                                  );
-                                  getCheckSpace(
-                                      int.parse(_bays[index]["bayID"]),
-                                      bookingdate,
-                                      duration,
-                                      testuser);
-                                },
-                                child: const Text('Yes'),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                      child: Icon(Icons.book_online),
-                    ),
-                  )
-                ],
-              ),
-            );
-          } else if (_bays[index]["description"].length == 5) {
-            return Card(
-              margin: EdgeInsets.all(10),
-              child: ExpansionTile(
-                leading: Text(_bays[index]["streetMarkerID"].toString(),
-                    style: TextStyle(color: Colors.black)),
-                title: Text('Location: ' +
-                    _bays[index]["lat"] +
-                    ', ' +
-                    _bays[index]["long"]),
-                children: <Widget>[
-                  ListTile(
-                    title: Text('Restrictions: ' +
-                        _bays[index]["description"]["description1"] +
-                        ', ' +
-                        _bays[index]["description"]["description2"] +
-                        ', ' +
-                        _bays[index]["description"]["description3"] +
-                        ', ' +
-                        _bays[index]["description"]["description4"] +
-                        ', ' +
-                        _bays[index]["description"]["description5"]),
-                    trailing: InkWell(
-                      onTap: () async {
-                        showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Confirm Booking'),
-                            content: Text(
-                                'Are you sure you would like to book Parking Bay ' +
-                                    _bays[index]["streetMarkerID"].toString() +
-                                    ' at your chosen time?'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(context, 'Cancel'),
-                                child: const Text('No'),
-                              ),
-                              TextButton(
-                                onPressed: () async {
-                                  Navigator.pop(context);
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return loading;
-                                    },
-                                  );
-                                  getCheckSpace(
-                                      int.parse(_bays[index]["bayID"]),
-                                      bookingdate,
-                                      duration,
-                                      testuser);
-                                },
-                                child: const Text('Yes'),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                      child: Icon(Icons.book_online),
-                    ),
-                  )
-                ],
-              ),
-            );
-          } else {
-            return Card(
-              margin: EdgeInsets.all(10),
-              child: ListTile(
-                title: Text('failed to load data'),
-              ),
-            );
-          }
+          // INSERT YOUR CODE HERE
+          // VARIABLES/FUNCTIONS TO BE USED:
+          // _bays : list of all bays ( e.g. _bays[i]['streetMarkerID'])
+          // bookingdate : the booking date and time (e.g. 2021-08-31 03:39:05.92) that will need to be passed into getReserveSpace()
+          // duration : the length of booking time (e.g. 1.5 hours) that will need to be passed into getReserveSpace()
+          // getReserveSpace() : does the http request and validation, just set the booking button onpress/onclick/ontap to action this function
+          // loading : this variable returns the loading animation alert dialog, wrap this in a 'showDialog' to use it.
+
+          // In this section you will have to program your version on displaying the list items,
+          // you do not need to touch any other code in the file
+          // Only work on lines 133 and on
         });
     return listView;
   }

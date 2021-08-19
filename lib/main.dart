@@ -14,9 +14,10 @@ import 'package:url_launcher/url_launcher.dart';
 // ignore: implementation_imports
 //import 'package:smart_parking_solutions_common/src/credentials.dart';
 
-String testuser = '102145123@student.swin.edu.au';
+const localhost = '192.168.87.86';
+String testuser = 'tristan.sutton@gmail.com';
 var bookingdate = new DateTime.now();
-double duration = 1.0;
+String duration = '1:30:00';
 
 //main method commenting
 Future<void> main() async {
@@ -83,7 +84,6 @@ Future<void> readJson() async {
 class _HomePageState extends State<HomePage> {
   Future<void> _launchURL() async {
     // const localhost = 'localhost';
-    const localhost = 'geekayk.ddns.net';
     final url =
         'https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email&response_type=code&redirect_uri=http://$localhost:8888/authUser&client_id=${Credentials.clientID}';
     if (Platform.isAndroid || Platform.isIOS) {
