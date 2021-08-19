@@ -2,10 +2,11 @@ import 'dart:convert';
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:smart_parking_solutions/views/booking_conf.dart';
 import '../main.dart';
 
-String testuser = '102145123@student.swin.edu.au';
+String testuser = 'tristan.sutton@gmail.com';
 
 class ReserveSpaceView extends StatefulWidget {
   ReserveSpaceView(
@@ -16,7 +17,7 @@ class ReserveSpaceView extends StatefulWidget {
       : super(key: key);
   final String jsonresponse;
   final DateTime bookingdate;
-  final double duration;
+  final String duration;
   @override
   State<ReserveSpaceView> createState() => _ReserveSpaceView();
 }
@@ -28,7 +29,10 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
   List _bays = [];
 
   Future<void> getReserveSpace(
-      int bayID, DateTime bookingtime, double duration, String user) async {
+      int bayID, DateTime bookingtime, String duration, String user) async {
+    String formattedDate =
+        DateFormat('yyyy-MM-dd kk:mm:ss').format(bookingtime);
+    print(formattedDate);
     String urlstring = 'http://' +
         localhost +
         ':8888/reserveSpace?bayID=' +
@@ -36,13 +40,13 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
         '&email=' +
         user +
         '&startTime=' +
-        bookingtime.toString() +
-        '&duration=' +
-        duration.toString();
+        formattedDate.toString() +
+        'Z&duration=' +
+        duration;
     print(urlstring);
     final url = Uri.parse(urlstring);
     Response response = await get(url);
-    if (response.statusCode == 200) {
+    if (response.statusCode >= 200 && response.statusCode < 300) {
       Navigator.pop(context);
       Navigator.push<MaterialPageRoute>(context,
           MaterialPageRoute(builder: (context) {
@@ -128,7 +132,7 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
 
   Widget getListView() {
     final DateTime bookingdate = widget.bookingdate;
-    final double duration = widget.duration;
+    final String duration = widget.duration;
     var listView = ListView.builder(
         itemCount: _bays.length,
         itemBuilder: (context, index) {
