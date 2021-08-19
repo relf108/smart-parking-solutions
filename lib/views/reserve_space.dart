@@ -28,8 +28,8 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
   late AnimationController controller;
   List _bays = [];
 
-  Future<void> getReserveSpace(
-      int bayID, DateTime bookingtime, String duration, String user) async {
+  Future<void> getReserveSpace(int bayID, DateTime bookingtime, String duration,
+      String user, String streetmarkerid, String lat, String long) async {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -57,7 +57,10 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
       Navigator.push<MaterialPageRoute>(context,
           MaterialPageRoute(builder: (context) {
         return BookingConfView(
-          jsonresponse: response.body,
+          streetMarkerID: streetmarkerid,
+          bookingdate: formattedDate,
+          lat: lat,
+          long: long,
         );
       }));
     } else {

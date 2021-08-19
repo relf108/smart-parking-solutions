@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:smart_parking_solutions/main.dart';
 import 'package:smart_parking_solutions/views/search_spaces.dart';
 import 'package:smart_parking_solutions/views/create_password_view.dart';
 
@@ -12,8 +16,26 @@ class View extends StatefulWidget {
 /// This is the private State class that goes with MyStatefulWidget.
 class _View extends State<View> {
   late TextEditingController _controller;
+  List _bookings = [];
+
+  Future<void> getCurrentBookings() async {
+    String urlstring =
+        'http://' + localhost + ':8888/currentBookings?email=' + testuser;
+    print(urlstring);
+    final url = Uri.parse(urlstring);
+    Response response = await get(url);
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      print(response.body);
+      final responsedecoded = await json.decode(response.body);
+      setState(() {
+        _bookings = responsedecoded['bookings'];
+      });
+    }
+  }
+
   @override
   void initState() {
+    getCurrentBookings();
     super.initState();
     _controller = TextEditingController();
   }
@@ -43,6 +65,26 @@ class _View extends State<View> {
                   child: Card(
                     semanticContainer: true,
                     clipBehavior: Clip.antiAlias,
+                    child: ListView.builder(
+                        itemCount: _bookings.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            leading: Text(
+                                /*_bookings[index]['streetMarkerID']*/ _bookings[
+                                    index]['bayID']),
+                            title: Text(_bookings[index]['startDate']),
+                            subtitle: Text(
+                                'Location: ' /* +
+                                _bookings[index]['lat'] +
+                                ', ' +
+                                _bookings[index]['long']*/
+                                ),
+                            trailing: InkWell(
+                              onTap: () => null,
+                              child: Icon(Icons.arrow_forward),
+                            ),
+                          );
+                        }),
                   ),
                 )
               ],

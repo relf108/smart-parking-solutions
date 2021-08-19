@@ -14,7 +14,7 @@ import 'package:url_launcher/url_launcher.dart';
 // ignore: implementation_imports
 //import 'package:smart_parking_solutions_common/src/credentials.dart';
 
-const localhost = 'geekayk.ddns.net';
+const localhost = '192.168.87.86';
 String testuser = 'tristan.sutton@gmail.com';
 var bookingdate = new DateTime.now();
 String duration = '1:30:00';

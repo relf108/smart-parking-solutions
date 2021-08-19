@@ -6,9 +6,15 @@ import 'package:flutter/material.dart';
 class BookingConfView extends StatefulWidget {
   BookingConfView({
     Key? key,
-    required this.jsonresponse,
+    required this.streetMarkerID,
+    required this.bookingdate,
+    required this.lat,
+    required this.long,
   }) : super(key: key);
-  final String jsonresponse;
+  final String streetMarkerID;
+  final String bookingdate;
+  final String lat;
+  final String long;
   @override
   State<BookingConfView> createState() => _BookingConfView();
 }
@@ -17,14 +23,6 @@ class BookingConfView extends StatefulWidget {
 class _BookingConfView extends State<BookingConfView> {
   late TextEditingController _controller;
   List confirmation = [];
-
-  Future<void> readJson(String jsonresponse) async {
-    final String response = jsonresponse;
-    final responsedecoded = await json.decode(response);
-    setState(() {
-      confirmation = responsedecoded["bays"];
-    });
-  }
 
   @override
   void initState() {
@@ -40,11 +38,26 @@ class _BookingConfView extends State<BookingConfView> {
 
   @override
   Widget build(BuildContext context) {
+    final streetMarkerID = widget.streetMarkerID;
+    final lat = widget.lat;
+    final long = widget.long;
+    String bookingdate = widget.bookingdate;
     final ratioGen = new ScreenRatioGenerator(context: context);
     return Scaffold(
-        appBar: AppBar(
-      toolbarHeight: ratioGen.screenHeightPercent(percent: 6),
-      title: const Text('Booking Confirmation'),
-    ));
+      appBar: AppBar(
+        toolbarHeight: ratioGen.screenHeightPercent(percent: 6),
+        title: const Text('Booking Confirmation'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('streetMarkerID = ' + streetMarkerID),
+            Text('Location = ' + lat + ', ' + long),
+            Text('Booking Date/Time = ' + bookingdate)
+          ],
+        ),
+      ),
+    );
   }
 }

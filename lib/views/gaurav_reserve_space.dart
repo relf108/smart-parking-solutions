@@ -28,8 +28,8 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
   late AnimationController controller;
   List _bays = [];
 
-  Future<void> getReserveSpace(
-      int bayID, DateTime bookingtime, String duration, String user) async {
+  Future<void> getReserveSpace(int bayID, DateTime bookingtime, String duration,
+      String user, String streetmarkerid, String lat, String long) async {
     String formattedDate =
         DateFormat('yyyy-MM-dd kk:mm:ss').format(bookingtime);
     print(formattedDate);
@@ -46,12 +46,16 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
     print(urlstring);
     final url = Uri.parse(urlstring);
     Response response = await get(url);
+    print(response.body + response.statusCode.toString());
     if (response.statusCode >= 200 && response.statusCode < 300) {
       Navigator.pop(context);
       Navigator.push<MaterialPageRoute>(context,
           MaterialPageRoute(builder: (context) {
         return BookingConfView(
-          jsonresponse: response.body,
+          streetMarkerID: streetmarkerid,
+          bookingdate: formattedDate,
+          lat: lat,
+          long: long,
         );
       }));
     } else {
@@ -212,7 +216,10 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
                                     int.parse(_bays[index]["bayID"]),
                                     bookingdate,
                                     duration,
-                                    testuser);
+                                    testuser,
+                                    _bays[index]['streetMarkerID'],
+                                    _bays[index]['lat'],
+                                    _bays[index]['long']);
                               },
                               child: const Text('Yes'),
                             ),
