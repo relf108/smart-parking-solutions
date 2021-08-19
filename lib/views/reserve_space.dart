@@ -30,6 +30,12 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
 
   Future<void> getReserveSpace(
       int bayID, DateTime bookingtime, String duration, String user) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return loading;
+      },
+    );
     String formattedDate =
         DateFormat('yyyy-MM-dd kk:mm:ss').format(bookingtime);
     print(formattedDate);
