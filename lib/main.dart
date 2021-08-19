@@ -159,27 +159,6 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                    onPressed: () => {
-                          Navigator.push<MaterialPageRoute>(context,
-                              MaterialPageRoute(builder: (context) {
-                            return View();
-                          }))
-                        },
-                    child: Text('Home Screen')),
-                ElevatedButton(
-                    onPressed: () => {
-                          Navigator.push<MaterialPageRoute>(context,
-                              MaterialPageRoute(builder: (context) {
-                            return SearchSpacesView();
-                          }))
-                        },
-                    child: Text('Search Spaces')),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
                   onPressed: () => [
                     Navigator.push<MaterialPageRoute>(context,
                         MaterialPageRoute(builder: (context) {
@@ -208,20 +187,6 @@ class _HomePageState extends State<HomePage> {
                     child: Text('Booking Confirmation')),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () => [
-                    Navigator.push<MaterialPageRoute>(context,
-                        MaterialPageRoute(builder: (context) {
-                      return HttpExample();
-                    }))
-                  ],
-                  child: Text('HTTP EXAMPLE'),
-                ),
-              ],
-            )
           ],
         ),
       ),
