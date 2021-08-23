@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
 

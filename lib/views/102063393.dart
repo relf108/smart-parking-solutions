@@ -1,23 +1,21 @@
-import 'dart:convert';
+import 'dart:io';
+
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:intl/intl.dart';
 import 'package:smart_parking_solutions/views/booking_conf.dart';
+import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 import '../main.dart';
 
 String testuser = 'tristan.sutton@gmail.com';
 
 class ReserveSpaceView extends StatefulWidget {
-  ReserveSpaceView(
-      {Key? key,
-      required this.jsonresponse,
-      required this.bookingdate,
-      required this.duration})
+  ///These should be available from the searchSpaces view and will be easy to pass through
+  final SearchSpacesResponse searchResp;
+  final Booking booking;
+
+  ReserveSpaceView({Key? key, required this.booking, required this.searchResp})
       : super(key: key);
-  final String jsonresponse;
-  final DateTime bookingdate;
-  final String duration;
   @override
   State<ReserveSpaceView> createState() => _ReserveSpaceView();
 }
@@ -26,38 +24,30 @@ class ReserveSpaceView extends StatefulWidget {
 class _ReserveSpaceView extends State<ReserveSpaceView> {
   late TextEditingController _controller;
   late AnimationController controller;
-  List _bays = [];
+  List<ParkingSpace> _bays = [];
 
-  Future<void> getReserveSpace(int bayID, DateTime bookingtime, String duration,
-      String user, String streetmarkerid, String lat, String long) async {
-    String formattedDate =
-        DateFormat('yyyy-MM-dd kk:mm:ss').format(bookingtime.toUtc());
-    String localFormattedDate =
-        DateFormat('yyyy-MM-dd kk:mm:ss').format(bookingtime);
-    print(formattedDate);
-    String urlstring = 'http://' +
-        localhost +
-        ':8888/reserveSpace?bayID=' +
-        bayID.toString() +
-        '&email=' +
-        user +
-        '&startTime=' +
-        formattedDate.toString() +
-        'Z&duration=' +
-        duration;
+  Future<void> getReserveSpace(Booking booking) async {
+    String localFormattedDate = booking.startDate.toLocal().toString();
+    //  print(formattedDate);
+    String urlstring = 'http://' + localhost + ':8888/reserveSpace';
     print(urlstring);
     final url = Uri.parse(urlstring);
-    Response response = await get(url);
+    Response response = await post(url, body: booking.toJson());
     print(response.body + response.statusCode.toString());
-    if (response.statusCode >= 200 && response.statusCode < 300) {
+    // if (response.statusCode >= 200 && response.statusCode < 300) { really avoid this when possible
+    // Try the following in your own code
+    if (response.statusCode == HttpStatus.accepted) {
+      ///HttpStatus vars directly evaluate to ints
+      ///Definition from dart libs:
+      /// static const int accepted = 202; 
       Navigator.pop(context);
       Navigator.push<MaterialPageRoute>(context,
           MaterialPageRoute(builder: (context) {
         return BookingConfView(
-          streetMarkerID: streetmarkerid,
+          streetMarkerID: booking.bookedSpace.stMarkerID!,
           bookingdate: localFormattedDate,
-          lat: lat,
-          long: long,
+          lat: booking.bookedSpace.lat!,
+          long: booking.bookedSpace.lon!,
         );
       }));
     } else {
@@ -72,7 +62,8 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  Text('Unable to reserve BayID: ' + bayID.toString()),
+                  Text(
+                      'Unable to reserve BayID: ' + booking.bookedSpace.bayID!),
                   Text(''),
                   Text('Please go back and try booking another spot.'),
                   Text(''),
@@ -100,20 +91,10 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
     }
   }
 
-  Future<void> readJson(String jsonresponse) async {
-    final String response = jsonresponse;
-    final responsedecoded = await json.decode(response);
-    setState(() {
-      _bays = responsedecoded["bays"];
-    });
-    for (int i = 0; i < _bays.length; i++) {
-      _bays[i]["distance"] = int.parse(_bays[i]["distance"]);
-    }
-  }
-
   @override
   void initState() {
-    readJson(widget.jsonresponse);
+    //Add the entire response as we're keeping all this data closeley coupled
+    _bays.add(widget.booking.bookedSpace);
     super.initState();
     _controller = TextEditingController();
   }
@@ -137,8 +118,9 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
   }
 
   Widget getListView() {
-    final DateTime bookingdate = widget.bookingdate;
-    final String duration = widget.duration;
+    final DateTime bookingdate = widget.booking.startDate;
+    final String duration =
+        bookingdate.difference(widget.booking.endDate).toString();
     var listView = ListView.builder(
         itemCount: _bays.length,
         itemBuilder: (context, index) {
@@ -147,49 +129,14 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
             margin: EdgeInsets.all(10),
             child: ExpansionTile(
               leading: Text(
-                _bays[index]["streetMarkerID"].toString(),
+                _bays[index].stMarkerID!,
                 style: TextStyle(color: Colors.black),
               ),
-              title: Text('Location: ' +
-                  _bays[index]["lat"] +
-                  ', ' +
-                  _bays[index]["long"]),
+              title: Text('Location: ' + _bays[index].location!.toString()),
               children: <Widget>[
                 ListTile(
                   title: Text((() {
-                    if (_bays[index]["description"].length == 1) {
-                      return _bays[index]["description"]["description1"];
-                    } else if (_bays[index]["description"].length == 2) {
-                      return _bays[index]["description"]["description1"] +
-                          ', ' +
-                          _bays[index]["description"]["description2"];
-                    } else if (_bays[index]["description"].length == 3) {
-                      return _bays[index]["description"]["description1"] +
-                          ', ' +
-                          _bays[index]["description"]["description2"] +
-                          ', ' +
-                          _bays[index]["description"]["description3"];
-                    } else if (_bays[index]["description"].length == 4) {
-                      return _bays[index]["description"]["description1"] +
-                          ', ' +
-                          _bays[index]["description"]["description2"] +
-                          ', ' +
-                          _bays[index]["description"]["description3"] +
-                          ', ' +
-                          _bays[index]["description"]["description4"];
-                    } else if (_bays[index]["description"].length == 5) {
-                      return _bays[index]["description"]["description1"] +
-                          ', ' +
-                          _bays[index]["description"]["description2"] +
-                          ', ' +
-                          _bays[index]["description"]["description3"] +
-                          ', ' +
-                          _bays[index]["description"]["description4"] +
-                          ', ' +
-                          _bays[index]["description"]["description5"];
-                    } else {
-                      return 'Error reading restrictions';
-                    }
+                    return widget.searchResp.description.toString();
                   })()),
                   trailing: InkWell(
                     onTap: () async {
@@ -199,7 +146,7 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
                           title: const Text('Confirm Booking'),
                           content: Text(
                               'Are you sure you would like to book Parking Bay ' +
-                                  _bays[index]["streetMarkerID"].toString() +
+                                  _bays[index].stMarkerID.toString() +
                                   ' at your chosen time?'),
                           actions: <Widget>[
                             TextButton(
@@ -215,14 +162,7 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
                                     return loading;
                                   },
                                 );
-                                getReserveSpace(
-                                    int.parse(_bays[index]["bayID"]),
-                                    bookingdate,
-                                    duration,
-                                    testuser,
-                                    _bays[index]['streetMarkerID'],
-                                    _bays[index]['lat'],
-                                    _bays[index]['long']);
+                                getReserveSpace(widget.booking);
                               },
                               child: const Text('Yes'),
                             ),

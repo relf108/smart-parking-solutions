@@ -70,7 +70,7 @@ class _SignedInView extends State<SearchSpacesView> {
                         maxWidth: ratioGen.screenWidthPercent(percent: 100)),
                     child: JsonGrid(
                         jsonObject: ParkingSpace(
-                                bayId: '8346',
+                                bayID: '8346',
                                 lat: '-37.81243621759688',
                                 lon: '144.9678039100279',
                                 location: Location(
@@ -78,7 +78,7 @@ class _SignedInView extends State<SearchSpacesView> {
                                     longitude: '144.9678039100279',
                                     humanAddress:
                                         '{\"address\": \"\", \"city\": \"\", \"state\": \"\", \"zip\": \"\"}'),
-                                stMarkerId: '767Wa',
+                                stMarkerID: '767Wa',
                                 status: 'Unoccupied')
                             .toJson())))
           ],
