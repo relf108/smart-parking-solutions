@@ -341,7 +341,7 @@ class _SearchSpacesView extends State<SearchSpacesView> {
                                         percent: 90),
                                     child: Column(children: <Widget>[
                                       DropdownButtonFormField<int>(
-                                          style: TextStyle(color: Colors.white),
+                                          style: TextStyle(color: Colors.black),
                                           value: _radius,
                                           items: [100, 200, 500, 1000, 2000]
                                               .map((label) => DropdownMenuItem(
@@ -373,35 +373,41 @@ class _SearchSpacesView extends State<SearchSpacesView> {
                             ],
                           ),
                           Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Container(
-                                  width:
-                                      ratioGen.screenWidthPercent(percent: 30),
-                                  child: ElevatedButton(
-                                      onPressed: () => {reset()},
-                                      child: Text('Reset')),
+                                  // height: 120.0,
+                                  width: ratioGen.screenWidthPercent(percent: 40),
+                                  child: Align( 
+                                    alignment: Alignment.center,
+                                    child: ElevatedButton(
+                                        onPressed: () => {reset()},
+                                        child: Text('Reset')
+                                    ),
+                                  ),
                                 ),
                                 Container(
-                                  width:
-                                      ratioGen.screenWidthPercent(percent: 30),
-                                  child: ElevatedButton(
-                                      onPressed: () async {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return loading;
-                                          },
-                                        );
-                                        makeGetRequest(
-                                            address.text,
-                                            _radius.toString(),
-                                            seldate,
-                                            seltime,
-                                            _duration,
-                                            context);
-                                      },
-                                      child: Text('Submit')),
+                                  width: ratioGen.screenWidthPercent(percent: 40),
+                                  child: Align( 
+                                    alignment: Alignment.center,
+                                    child: ElevatedButton(
+                                        onPressed: () async {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return loading;
+                                            },
+                                          );
+                                          makeGetRequest(
+                                              address.text,
+                                              _radius.toString(),
+                                              seldate,
+                                              seltime,
+                                              _duration,
+                                              context);
+                                        },
+                                        child: Text('Submit')
+                                        ),
+                                ),
                                 ),
                               ]),
                         ],
