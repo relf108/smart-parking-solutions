@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:smart_parking_solutions/main.dart';
 import 'package:smart_parking_solutions/views/search_spaces.dart';
 import 'package:smart_parking_solutions/views/create_password_view.dart';
+import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 
 ///EXAMPLE STATELESS WIDGET
 class View extends StatefulWidget {
@@ -41,6 +42,24 @@ class _View extends State<View> {
     }
   }
 
+  // Future<String> getStreetAddress(String lat, String long) async {
+  //   String urlstring =
+  //       'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat + ',' + long}&key=$Credentials.googleKey';
+  //   print(urlstring);
+  //   Uri url = Uri.parse(urlstring);
+  //   Response response = await get(url);
+  //   print(response);
+  //   if (response.statusCode >= 200 && response.statusCode < 300) {
+  //     final responsedecoded = await json.decode(response.body);
+  //     setState(() {
+  //       address = responsedecoded['results'];
+  //     });
+  //     return address[0]['formatted_address'];
+  //   } else {
+  //     return 'failed to fetch address';
+  //   }
+  // }
+
   Future<void> cancelBooking(int booking) async {
     return showDialog<void>(
       context: context,
@@ -52,8 +71,8 @@ class _View extends State<View> {
             child: ListBody(
               children: <Widget>[
                 Text('Booking Details:'),
-                /*Text('Street Marker ID: ' +
-                    _bookings[booking]['streetMarkerID']),*/
+                Text('Street Marker ID: ' +
+                    _bookings[booking]['streetMarkerID']),
                 Text('Internal Bay ID: ' + _bookings[booking]['bayID']),
                 Text('Booking Start: ' + _bookings[booking]['startDate']),
                 Text('Booking End: ' + _bookings[booking]['endDate']),
@@ -116,18 +135,14 @@ class _View extends State<View> {
                           color: Colors.red,
                           child: ListTile(
                             leading: Text(
-                              /*_bookings[index]['streetMarkerID']*/ _bookings[
-                                  index]['bayID'],
+                              _bookings[index]['streetMarkerID'],
                               style: TextStyle(color: Colors.white),
                             ),
                             title: Text(_bookings[index]['startDate'],
                                 style: TextStyle(color: Colors.white)),
                             subtitle: Text(
-                                'Location: ' /* +
-                                _bookings[index]['lat'] +
-                                ', ' +
-                                _bookings[index]['long']*/
-                                ,
+                                //'Location: ${getStreetAddress(_bookings[index]['lat'], _bookings[index]['long'])}'
+                                'Location: ',
                                 style: TextStyle(color: Colors.white)),
                             trailing: InkWell(
                               onTap: () async {

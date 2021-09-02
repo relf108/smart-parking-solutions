@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:smart_parking_solutions/views/view.dart';
 import 'package:smart_parking_solutions/views/reserve_space.dart';
 import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';

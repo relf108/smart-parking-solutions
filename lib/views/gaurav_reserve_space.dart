@@ -148,7 +148,7 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
             child: ExpansionTile(
               leading: Text(
                 _bays[index]["streetMarkerID"].toString(),
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white),
               ),
               title: Text('Location: ' +
                   _bays[index]["lat"] +
@@ -190,7 +190,7 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
                     } else {
                       return 'Error reading restrictions';
                     }
-                  })()),
+                  })(), style: TextStyle(color: Colors.white)),
                   trailing: InkWell(
                     onTap: () async {
                       showDialog<String>(
