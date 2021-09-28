@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+// import 'package:http/http.dart' as http;
 import 'package:smart_parking_solutions/main.dart';
 import 'package:smart_parking_solutions/views/search_spaces.dart';
 import 'package:smart_parking_solutions/views/create_password_view.dart';
@@ -60,6 +61,22 @@ class _View extends State<View> {
   //   }
   // }
 
+ Future<void> deleteBooking(int userID) async {
+  final Response response = await delete(
+    Uri.parse('http://geekayk.ddns.net:8888/currentBookings/$userID'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  );
+  if (response.statusCode == 200) {
+    // return bookings.fromJson(jsonDecode(response.body));
+    print(response.body);
+    getCurrentBookings();
+  } else {
+    throw Exception('Failed to delete the booking.');
+  }
+}
+
   Future<void> cancelBooking(int booking) async {
     return showDialog<void>(
       context: context,
@@ -90,7 +107,11 @@ class _View extends State<View> {
             TextButton(
               child: const Text('Yes'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pop();  //here http request to delete the booking
+                setState(() {
+                  _bookings = _bookings.removeAt(booking);  //deleting local data
+                });
+                deleteBooking(booking); //calling deleteBooking function to delete the booking
               },
             ),
           ],
