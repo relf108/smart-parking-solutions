@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_parking_solutions/views/gaurav_reserve_space.dart';
+import 'package:smart_parking_solutions/views/102063393.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart';
+import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 import '../main.dart';
 
 class SearchSpacesView extends StatefulWidget {
@@ -13,7 +14,7 @@ class SearchSpacesView extends StatefulWidget {
 }
 
 Future<void> makeGetRequest(String address, String radius, DateTime date,
-    DateTime time, String duration, BuildContext context) async {
+    DateTime time, Duration duration, BuildContext context) async {
   print('Address: $address Radius $radius');
   var bookingdatetime = DateTime.parse(
       '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')} ${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}:00');
@@ -35,7 +36,7 @@ Future<void> makeGetRequest(String address, String radius, DateTime date,
         MaterialPageRoute(builder: (context) {
       return ReserveSpaceView(
           jsonresponse: response.body,
-          bookingdate: bookingdate,
+          startDate: bookingdatetime,
           duration: duration);
     }));
   } else if (body['numberOfSpaces'] == 0) {
@@ -112,7 +113,7 @@ Future<void> makeGetRequest(String address, String radius, DateTime date,
       MaterialPageRoute(builder: (context) {
     return ReserveSpaceView(
       jsonresponse: response.body,
-      bookingdate: bookingdatetime,
+      startDate: bookingdatetime,
       duration: duration,
     );
   }));
@@ -124,7 +125,7 @@ class _SearchSpacesView extends State<SearchSpacesView> {
   final _formKey = GlobalKey<FormState>();
   final address = TextEditingController();
   late int _radius = 100;
-  String _duration = '0:30:00';
+  Duration _duration = Duration(minutes: 30);
   String _date = "Not set";
   String _time = "Not set";
   late DateTime seldate, seltime;
@@ -301,16 +302,19 @@ class _SearchSpacesView extends State<SearchSpacesView> {
                                     child: Column(children: <Widget>[
                                       DropdownButtonFormField<String>(
                                           style: TextStyle(color: Colors.black),
-                                          value: _duration,
+                                          value: _duration.toString(),
                                           items: [
-                                            '0:30:00',
-                                            '1:00:00',
-                                            '1:30:00',
-                                            '2:00:00',
-                                            '2:30:00',
-                                            '3:00:00',
-                                            '3:30:00',
-                                            '4:00:00'
+                                            Duration(minutes: 30).toString(),
+                                            Duration(hours: 1).toString(),
+                                            Duration(hours: 1, minutes: 30)
+                                                .toString(),
+                                            Duration(hours: 2).toString(),
+                                            Duration(hours: 2, minutes: 30)
+                                                .toString(),
+                                            Duration(hours: 3).toString(),
+                                            Duration(hours: 3, minutes: 30)
+                                                .toString(),
+                                            Duration(hours: 4).toString()
                                           ]
                                               .map((label) => DropdownMenuItem(
                                                     child:
@@ -325,7 +329,7 @@ class _SearchSpacesView extends State<SearchSpacesView> {
                                                   color: Colors.white)),
                                           onChanged: (value) {
                                             setState(() {
-                                              _duration = value!;
+                                              _duration = value! as Duration;
                                             });
                                           })
                                     ])),
@@ -372,44 +376,41 @@ class _SearchSpacesView extends State<SearchSpacesView> {
                               )
                             ],
                           ),
-                          Row(
-                              children: [
-                                Container(
-                                  // height: 120.0,
-                                  width: ratioGen.screenWidthPercent(percent: 40),
-                                  child: Align( 
-                                    alignment: Alignment.center,
-                                    child: ElevatedButton(
-                                        onPressed: () => {reset()},
-                                        child: Text('Reset')
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  width: ratioGen.screenWidthPercent(percent: 40),
-                                  child: Align( 
-                                    alignment: Alignment.center,
-                                    child: ElevatedButton(
-                                        onPressed: () async {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return loading;
-                                            },
-                                          );
-                                          makeGetRequest(
-                                              address.text,
-                                              _radius.toString(),
-                                              seldate,
-                                              seltime,
-                                              _duration,
-                                              context);
+                          Row(children: [
+                            Container(
+                              // height: 120.0,
+                              width: ratioGen.screenWidthPercent(percent: 40),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: ElevatedButton(
+                                    onPressed: () => {reset()},
+                                    child: Text('Reset')),
+                              ),
+                            ),
+                            Container(
+                              width: ratioGen.screenWidthPercent(percent: 40),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: ElevatedButton(
+                                    onPressed: () async {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return loading;
                                         },
-                                        child: Text('Submit')
-                                        ),
-                                ),
-                                ),
-                              ]),
+                                      );
+                                      makeGetRequest(
+                                          address.text,
+                                          _radius.toString(),
+                                          seldate,
+                                          seltime,
+                                          _duration,
+                                          context);
+                                    },
+                                    child: Text('Submit')),
+                              ),
+                            ),
+                          ]),
                         ],
                       ))
                 ],

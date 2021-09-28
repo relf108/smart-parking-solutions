@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dimension_ratios/screen_ratio_generator.dart';
@@ -7,15 +8,30 @@ import 'package:smart_parking_solutions/views/booking_conf.dart';
 import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 import '../main.dart';
 
-String testuser = 'tristan.sutton@gmail.com';
+//String testuser = 'tristan.sutton@gmail.com';
+User testUser = User(
+    email: 'tristan.sutton@gmail.com',
+    familyName: 'Sutton',
+    givenName: 'Tristan',
+    googleUserID: '116902257632708248933',
+    handicapped: false,
+    userID: 1);
 
 class ReserveSpaceView extends StatefulWidget {
   ///These should be available from the searchSpaces view and will be easy to pass through
-  final SearchSpacesResponse searchResp;
-  final Booking booking;
-
-  ReserveSpaceView({Key? key, required this.booking, required this.searchResp})
-      : super(key: key);
+  ReserveSpaceView(
+      {Key? key,
+      required jsonresponse,
+      required this.startDate,
+      required this.duration})
+      : super(key: key) {
+    for (var bay in jsonDecode(jsonresponse)['bays']) {
+      this.searchResp.add(SearchSpacesResponse.fromJson(json: bay));
+    }
+  }
+  final DateTime startDate;
+  final Duration duration;
+  final List<SearchSpacesResponse> searchResp = [];
   @override
   State<ReserveSpaceView> createState() => _ReserveSpaceView();
 }
@@ -24,7 +40,6 @@ class ReserveSpaceView extends StatefulWidget {
 class _ReserveSpaceView extends State<ReserveSpaceView> {
   late TextEditingController _controller;
   late AnimationController controller;
-  List<ParkingSpace> _bays = [];
 
   Future<void> getReserveSpace(Booking booking) async {
     String localFormattedDate = booking.startDate.toLocal().toString();
@@ -39,7 +54,7 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
     if (response.statusCode == HttpStatus.accepted) {
       ///HttpStatus vars directly evaluate to ints
       ///Definition from dart libs:
-      /// static const int accepted = 202; 
+      /// static const int accepted = 202;
       Navigator.pop(context);
       Navigator.push<MaterialPageRoute>(context,
           MaterialPageRoute(builder: (context) {
@@ -94,7 +109,9 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
   @override
   void initState() {
     //Add the entire response as we're keeping all this data closeley coupled
-    _bays.add(widget.booking.bookedSpace);
+    // for (var resp in widget.searchResp) {
+    //   widget.searchResp.add(resp);
+    // }
     super.initState();
     _controller = TextEditingController();
   }
@@ -118,25 +135,26 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
   }
 
   Widget getListView() {
-    final DateTime bookingdate = widget.booking.startDate;
-    final String duration =
-        bookingdate.difference(widget.booking.endDate).toString();
+    final DateTime bookingdate = widget.startDate;
     var listView = ListView.builder(
-        itemCount: _bays.length,
+        itemCount: widget.searchResp.length,
         itemBuilder: (context, index) {
           return Card(
             color: spsblue,
             margin: EdgeInsets.all(10),
             child: ExpansionTile(
               leading: Text(
-                _bays[index].stMarkerID!,
-                style: TextStyle(color: Colors.black),
+                widget.searchResp[index].space.stMarkerID!,
+                style: TextStyle(color: Colors.white),
               ),
-              title: Text('Location: ' + _bays[index].location!.toString()),
+              title: Text(
+                'Location: ' + widget.searchResp[index].humanAddress.toString(),
+                style: TextStyle(color: Colors.white),
+              ),
               children: <Widget>[
                 ListTile(
                   title: Text((() {
-                    return widget.searchResp.description.toString();
+                    return widget.searchResp.first.description.toString();
                   })()),
                   trailing: InkWell(
                     onTap: () async {
@@ -146,7 +164,8 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
                           title: const Text('Confirm Booking'),
                           content: Text(
                               'Are you sure you would like to book Parking Bay ' +
-                                  _bays[index].stMarkerID.toString() +
+                                  widget.searchResp[index].space.stMarkerID
+                                      .toString() +
                                   ' at your chosen time?'),
                           actions: <Widget>[
                             TextButton(
@@ -162,7 +181,13 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
                                     return loading;
                                   },
                                 );
-                                getReserveSpace(widget.booking);
+                                getReserveSpace(Booking(
+                                    createdDate: DateTime.now(),
+                                    startDate: widget.startDate,
+                                    endDate:
+                                        widget.startDate.add(widget.duration),
+                                    bookedSpace: widget.searchResp[index].space,
+                                    owner: testUser));
                               },
                               child: const Text('Yes'),
                             ),

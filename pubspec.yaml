@@ -27,8 +27,8 @@ dependencies:
   loading_animations: "^2.1.0"
   flutter:
     sdk: flutter
-  # smart_parking_solutions_common:
-  #   path: ../smart_parking_solutions_common
+  smart_parking_solutions_common:
+    path: ../smart_parking_solutions_common
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -39,7 +39,7 @@ dependencies:
   flutter_signin_button: ^2.0.0
   galileo_mysql: ^3.0.0
   flutter_datetime_picker: ^1.5.1
-  smart_parking_solutions_common: ^0.0.11
+  # smart_parking_solutions_common: ^0.0.11
   intl: ^0.17.0
   
 
