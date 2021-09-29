@@ -1,9 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_builder.dart';
+import 'package:http/http.dart';
 import 'package:smart_parking_solutions/backend_requests/sign_in_controller_requestor.dart';
+import 'package:smart_parking_solutions/main.dart';
+import 'package:smart_parking_solutions/tmp/session_data.dart';
 import 'package:smart_parking_solutions/views/create_password_view.dart';
+import 'package:smart_parking_solutions/views/home_view.dart';
+import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 
 /// Entrypoint example for sign in via Email/Password.
 class SignInView extends StatefulWidget {
@@ -18,9 +24,6 @@ class _SignInViewState extends State<SignInView> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  late bool _success;
-  String _userEmail = '';
 
   @override
   Widget build(BuildContext context) {
@@ -73,14 +76,6 @@ class _SignInViewState extends State<SignInView> {
                       text: 'signin',
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    child: Text(_success
-                        ? ''
-                        : (_success
-                            ? 'Successfully signed in $_userEmail'
-                            : 'sign in failed')),
-                  )
                 ],
               ),
             ),
@@ -104,15 +99,23 @@ class _SignInViewState extends State<SignInView> {
     final loginStatus = await signinRequestor.attemptLogin();
 
     switch (loginStatus.statusCode) {
-      case HttpStatus.accepted:
+      case HttpStatus.ok:
         {
-          _success = true;
+          ///TODO test cast does not fail
+          SessionData.currentUser =
+              User.fromJson(json: jsonDecode(loginStatus.body));
+          String urlstring = 'http://' + localhost + ':8888/currentBookings';
+          print(urlstring);
+          final url = Uri.parse(urlstring);
+          Response response =
+              await post(url, headers: {'content-type':'application/json'}, body:  jsonEncode(SessionData.currentUser.toJson()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return HomeView(response);
+          }));
         }
         break;
       case HttpStatus.unauthorized:
-        {
-          _success = false;
-        }
+        {}
         break;
       case HttpStatus.badRequest:
         {
@@ -120,9 +123,6 @@ class _SignInViewState extends State<SignInView> {
               MaterialPageRoute(builder: (context) {
             return CreatePasswordView(email);
           }));
-
-          // ignore: todo
-          ///TODO Prompt for new password
         }
         break;
     }

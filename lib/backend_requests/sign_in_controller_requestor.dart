@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:http/http.dart';
 import 'package:smart_parking_solutions/backend_requests/rest_details.dart';
 
 class SignInControllerRequestor {
@@ -8,15 +9,13 @@ class SignInControllerRequestor {
   SignInControllerRequestor({required this.email, required this.password});
 
   ///Return available spaces within distance around coordinates (JSON object)
-  Future<HttpClientResponse> attemptLogin() async {
+  Future<Response> attemptLogin() async {
     final client =
         HttpClient(); // Todo client intialization in class constructor or pass throught constructor
     final uri = Uri.parse(
-        "${RestDetails.host}/signInUser?email=$email &password=$password");
+        'http://192.168.1.111:8888/signInUser?email=$email&password=$password');
     //HttpClientResponse httpResult;
-    final HttpClientRequest req = await client.getUrl(uri);
-    final response = (await req.close());
-
+    final Response response = await get(uri);
     return response;
   }
 }

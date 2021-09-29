@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:smart_parking_solutions/views/view.dart';
+import 'package:smart_parking_solutions/views/home_view.dart';
 import 'package:smart_parking_solutions/views/reserve_space.dart';
+import 'package:smart_parking_solutions/views/sign_in_view.dart';
 import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 import 'package:loading_animations/loading_animations.dart';
 
@@ -13,8 +14,7 @@ import 'views/booking_conf.dart';
 // ignore: implementation_imports
 //import 'package:smart_parking_solutions_common/src/credentials.dart';
 
-const localhost = 'geekayk.ddns.net';
-String testuser = 'tristan.sutton@gmail.com';
+const localhost = '192.168.1.111';
 var bookingdate = new DateTime.now();
 String duration = '1:30:00';
 
@@ -139,7 +139,8 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () => {
                           Navigator.push<MaterialPageRoute>(context,
                               MaterialPageRoute(builder: (context) {
-                            return View();
+                                ///TODO change back to home
+                            return SignInView();
                           }))
                         },
                     child: Text('Home')),

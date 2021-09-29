@@ -3,81 +3,62 @@ import 'dart:convert';
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-// import 'package:http/http.dart' as http;
 import 'package:smart_parking_solutions/main.dart';
+import 'package:smart_parking_solutions/tmp/session_data.dart';
 import 'package:smart_parking_solutions/views/search_spaces.dart';
 import 'package:smart_parking_solutions/views/create_password_view.dart';
 import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 
 ///EXAMPLE STATELESS WIDGET
-class View extends StatefulWidget {
+class HomeView extends StatefulWidget {
+  HomeView(this.response);
+  Response response;
   @override
-  State<View> createState() => _View();
+  State<HomeView> createState() => _HomeView(response);
 }
 
 /// This is the private State class that goes with MyStatefulWidget.
-class _View extends State<View> {
+class _HomeView extends State<HomeView> {
+  _HomeView(this.response);
+  Response response;
   late TextEditingController _controller;
-  List _bookings = [];
+  List<Booking> _bookings = [];
 
-  Future<void> getCurrentBookings() async {
-    String urlstring =
-        'http://' + localhost + ':8888/currentBookings?email=' + testuser;
-    print(urlstring);
-    final url = Uri.parse(urlstring);
-    Response response = await get(url);
+  void getCurrentBookings() {
     if (response.statusCode >= 200 && response.statusCode < 300) {
       print(response.body);
-      final responsedecoded = await json.decode(response.body);
+      final responsedecoded = json.decode(response.body);
       setState(() {
-        _bookings = responsedecoded['bookings'];
+        for (var booking in responsedecoded['bookings']) {
+          Booking newBooking = Booking.fromJson(json: booking);
+          _bookings.add(newBooking);
+        }
       });
       for (int i = 0; i < _bookings.length; i++) {
-        var starttimeutc = DateTime.parse(_bookings[i]['startDate']);
-        var endtimeutc = DateTime.parse(_bookings[i]['endDate']);
-        var booktimeutc = DateTime.parse(_bookings[i]['createdDate']);
-        _bookings[i]['startDate'] = starttimeutc.toLocal().toString();
-        _bookings[i]['endDate'] = endtimeutc.toLocal().toString();
-        _bookings[i]['createdDate'] = booktimeutc.toLocal().toString();
+        var starttimeutc = _bookings[i].startDate;
+        var endtimeutc = _bookings[i].endDate;
+        var booktimeutc = _bookings[i].createdDate;
+        _bookings[i].startDate = starttimeutc.toLocal();
+        _bookings[i].endDate = endtimeutc.toLocal();
+        _bookings[i].createdDate = booktimeutc.toLocal();
       }
     }
   }
 
-  // Future<String> getStreetAddress(String lat, String long) async {
-  //   String urlstring =
-  //       'https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat + ',' + long}&key=$Credentials.googleKey';
-  //   print(urlstring);
-  //   Uri url = Uri.parse(urlstring);
-  //   Response response = await get(url);
-  //   print(response);
-  //   if (response.statusCode >= 200 && response.statusCode < 300) {
-  //     final responsedecoded = await json.decode(response.body);
-  //     setState(() {
-  //       address = responsedecoded['results'];
-  //     });
-  //     return address[0]['formatted_address'];
-  //   } else {
-  //     return 'failed to fetch address';
-  //   }
-  // }
-
- Future<void> deleteBooking(int userID) async {
-  final Response response = await delete(
-    Uri.parse('http://geekayk.ddns.net:8888/currentBookings/$userID'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-  );
-  if (response.statusCode == 200) {
-    // return bookings.fromJson(jsonDecode(response.body));
-    print(response.body);
-    getCurrentBookings();
-  } else {
-    throw Exception('Failed to delete the booking.');
+  Future<void> deleteBooking(Booking booking) async {
+    final Response response = await post(
+        Uri.parse('http://geekayk.ddns.net:8888/deleteBooking'),
+        body: booking.toJson());
+    if (response.statusCode == 200) {
+      // return bookings.fromJson(jsonDecode(response.body));
+      print(response.body);
+      getCurrentBookings();
+    } else {
+      throw Exception('Failed to delete the booking.');
+    }
   }
-}
 
-  Future<void> cancelBooking(int booking) async {
+  Future<void> cancelBooking(Booking booking) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -88,12 +69,11 @@ class _View extends State<View> {
             child: ListBody(
               children: <Widget>[
                 Text('Booking Details:'),
-                Text('Street Marker ID: ' +
-                    _bookings[booking]['streetMarkerID']),
-                Text('Internal Bay ID: ' + _bookings[booking]['bayID']),
-                Text('Booking Start: ' + _bookings[booking]['startDate']),
-                Text('Booking End: ' + _bookings[booking]['endDate']),
-                Text('Booking Made: ' + _bookings[booking]['createdDate']),
+                Text('Street Marker ID: ' + booking.bookedSpace.stMarkerID!),
+                Text('Internal Bay ID: ' + booking.bookedSpace.bayID!),
+                Text('Booking Start: ' + booking.startDate.toString()),
+                Text('Booking End: ' + booking.endDate.toString()),
+                Text('Booking Made: ' + booking.createdDate.toString()),
               ],
             ),
           ),
@@ -107,11 +87,13 @@ class _View extends State<View> {
             TextButton(
               child: const Text('Yes'),
               onPressed: () {
-                Navigator.of(context).pop();  //here http request to delete the booking
+                Navigator.of(context)
+                    .pop(); //here http request to delete the booking
                 setState(() {
-                  _bookings = _bookings.removeAt(booking);  //deleting local data
+                  _bookings.remove(booking); //deleting local data
                 });
-                deleteBooking(booking); //calling deleteBooking function to delete the booking
+                deleteBooking(
+                    booking); //calling deleteBooking function to delete the booking
               },
             ),
           ],
@@ -135,6 +117,7 @@ class _View extends State<View> {
 
   @override
   Widget build(BuildContext context) {
+    getCurrentBookings();
     final ratioGen = new ScreenRatioGenerator(context: context);
     return Scaffold(
       appBar: AppBar(
@@ -156,18 +139,21 @@ class _View extends State<View> {
                           color: Colors.red,
                           child: ListTile(
                             leading: Text(
-                              _bookings[index]['streetMarkerID'],
+                              _bookings[index]
+                                  .bookedSpace
+                                  .stMarkerID
+                                  .toString(),
                               style: TextStyle(color: Colors.white),
                             ),
-                            title: Text(_bookings[index]['startDate'],
+                            title: Text(_bookings[index].startDate.toString(),
                                 style: TextStyle(color: Colors.white)),
                             subtitle: Text(
                                 //'Location: ${getStreetAddress(_bookings[index]['lat'], _bookings[index]['long'])}'
-                                'Location: ',
+                                'Location: ${_bookings[index].bookedSpace.location!.humanAddress}',
                                 style: TextStyle(color: Colors.white)),
                             trailing: InkWell(
                               onTap: () async {
-                                cancelBooking(index);
+                                cancelBooking(_bookings[index]);
                               },
                               child: Icon(Icons.arrow_forward),
                             ),
