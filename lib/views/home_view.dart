@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:smart_parking_solutions/main.dart';
-import 'package:smart_parking_solutions/tmp/session_data.dart';
 import 'package:smart_parking_solutions/views/search_spaces.dart';
 import 'package:smart_parking_solutions/views/create_password_view.dart';
 import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:smart_parking_solutions/views/home_view.dart';
 import 'package:smart_parking_solutions/views/reserve_space.dart';
-import 'package:smart_parking_solutions/views/sign_in_view.dart';
+//import 'package:smart_parking_solutions/views/sign_in_view.dart';
 import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 import 'package:loading_animations/loading_animations.dart';
 
@@ -136,13 +136,13 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                    onPressed: () => {
+                    onPressed: () => { /*
                           Navigator.push<MaterialPageRoute>(context,
                               MaterialPageRoute(builder: (context) {
                                 ///TODO change back to home
                             return SignInView();
                           }))
-                        },
+                        */},
                     child: Text('Home')),
                 ElevatedButton(
                   onPressed: () => [
