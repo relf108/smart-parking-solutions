@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:smart_parking_solutions/views/home_view.dart';
 import 'package:smart_parking_solutions/views/reserve_space.dart';
 import 'package:smart_parking_solutions/views/sign_in_view.dart';
 import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
