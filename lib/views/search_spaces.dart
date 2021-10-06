@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:smart_parking_solutions/views/102063393.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart';
-import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 import '../main.dart';
 
 class SearchSpacesView extends StatefulWidget {

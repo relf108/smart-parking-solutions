@@ -1,8 +1,9 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:smart_parking_solutions/tmp/session_data.dart';
 import 'package:smart_parking_solutions/views/search_spaces.dart';
 import 'package:smart_parking_solutions/views/create_password_view.dart';
 import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
@@ -17,21 +18,24 @@ class HomeView extends StatefulWidget {
 
 /// This is the private State class that goes with MyStatefulWidget.
 class _HomeView extends State<HomeView> {
-  _HomeView(this.response);
-  Response response;
+  final localhost = '192.168.1.111';
+  _HomeView(this.initResponse);
+  Response initResponse;
   late TextEditingController _controller;
   List<Booking> _bookings = [];
 
-  void getCurrentBookings() {
-    if (response.statusCode >= 200 && response.statusCode < 300) {
-      print(response.body);
-      final responsedecoded = json.decode(response.body);
-      setState(() {
-        for (var booking in responsedecoded['bookings']) {
-          Booking newBooking = Booking.fromJson(json: booking);
-          _bookings.add(newBooking);
-        }
-      });
+  void getCurrentBookings({Response? response}) {
+    _bookings = [];
+    if (response != null) {
+      initResponse = response;
+    }
+    if (initResponse.statusCode >= 200 && initResponse.statusCode < 300) {
+      print(initResponse.body);
+      final responsedecoded = json.decode(initResponse.body);
+      for (var booking in responsedecoded['bookings']) {
+        Booking newBooking = Booking.fromJson(json: booking);
+        _bookings.add(newBooking);
+      }
       for (int i = 0; i < _bookings.length; i++) {
         var starttimeutc = _bookings[i].startDate;
         var endtimeutc = _bookings[i].endDate;
@@ -40,17 +44,25 @@ class _HomeView extends State<HomeView> {
         _bookings[i].endDate = endtimeutc.toLocal();
         _bookings[i].createdDate = booktimeutc.toLocal();
       }
+      setState(() {});
     }
   }
 
   Future<void> deleteBooking(Booking booking) async {
     final Response response = await post(
-        Uri.parse('http://geekayk.ddns.net:8888/deleteBooking'),
-        body: booking.toJson());
-    if (response.statusCode == 200) {
+        Uri.parse('http://' + localhost + ':8888/deleteBooking'),
+        headers: {'content-type': 'application/json'},
+        body: jsonEncode(booking.toJson()));
+    if (response.statusCode == HttpStatus.accepted) {
       // return bookings.fromJson(jsonDecode(response.body));
-      print(response.body);
-      getCurrentBookings();
+      String urlstring = 'http://' + localhost + ':8888/currentBookings';
+      print(urlstring);
+      final url = Uri.parse(urlstring);
+      Response response = await post(url,
+          headers: {'content-type': 'application/json'},
+          body: jsonEncode(SessionData.currentUser.toJson()));
+      getCurrentBookings(response: response);
+      setState(() {});
     } else {
       throw Exception('Failed to delete the booking.');
     }

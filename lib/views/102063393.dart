@@ -43,11 +43,16 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
 
   Future<void> getReserveSpace(Booking booking) async {
     String localFormattedDate = booking.startDate.toLocal().toString();
+    booking.createdDate = booking.createdDate.toUtc();
+    booking.startDate = booking.startDate.toUtc();
+    booking.endDate = booking.endDate.toUtc();
     //  print(formattedDate);
     String urlstring = 'http://' + localhost + ':8888/reserveSpace';
     print(urlstring);
     final url = Uri.parse(urlstring);
-    Response response = await post(url, body: booking.toJson());
+    Response response = await post(url,
+        headers: {'content-type': 'application/json'},
+        body: jsonEncode(booking.toJson()));
     print(response.body + response.statusCode.toString());
     // if (response.statusCode >= 200 && response.statusCode < 300) { really avoid this when possible
     // Try the following in your own code
@@ -135,7 +140,6 @@ class _ReserveSpaceView extends State<ReserveSpaceView> {
   }
 
   Widget getListView() {
-    final DateTime bookingdate = widget.startDate;
     var listView = ListView.builder(
         itemCount: widget.searchResp.length,
         itemBuilder: (context, index) {
