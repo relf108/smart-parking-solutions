@@ -1,20 +1,12 @@
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_parking_solutions/main.dart';
+import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 
 ///EXAMPLE STATELESS WIDGET
 class BookingConfView extends StatefulWidget {
-  BookingConfView({
-    Key? key,
-    required this.streetMarkerID,
-    required this.bookingdate,
-    required this.lat,
-    required this.long,
-  }) : super(key: key);
-  final String streetMarkerID;
-  final String bookingdate;
-  final String lat;
-  final String long;
+  BookingConfView({Key? key, required this.booking}) : super(key: key);
+  final Booking booking;
   @override
   State<BookingConfView> createState() => _BookingConfView();
 }
@@ -38,10 +30,9 @@ class _BookingConfView extends State<BookingConfView> {
 
   @override
   Widget build(BuildContext context) {
-    final streetMarkerID = widget.streetMarkerID;
-    final lat = widget.lat;
-    final long = widget.long;
-    String bookingdate = widget.bookingdate;
+    final streetMarkerID = widget.booking.bookedSpace.stMarkerID;
+    final address = widget.booking.bookedSpace.location!.humanAddress;
+    String bookingdate = 'From ${widget.booking.startDate} until ${widget.booking.endDate}';
     final ratioGen = new ScreenRatioGenerator(context: context);
     return Scaffold(
       appBar: AppBar(
@@ -54,7 +45,7 @@ class _BookingConfView extends State<BookingConfView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.only(left: 12.0, bottom: 80.0, top: 50.0),
+              padding: EdgeInsets.only(left: 12.0, bottom: 80.0, top: 25.0),
               child: ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor:
@@ -122,7 +113,7 @@ class _BookingConfView extends State<BookingConfView> {
                           color: Colors.teal.shade600,
                         ),
                         title: Text(
-                          "Street ID: " + long + lat,
+                          "Street ID: " + streetMarkerID!,
                           style: TextStyle(
                             fontSize: 20.0,
                             color: Colors.teal.shade900,
@@ -144,7 +135,7 @@ class _BookingConfView extends State<BookingConfView> {
                           color: Colors.teal.shade600,
                         ),
                         title: Text(
-                          "Location: " + long + lat,
+                          "Location: " + address!,
                           style: TextStyle(
                             fontSize: 20.0,
                             color: Colors.teal.shade900,

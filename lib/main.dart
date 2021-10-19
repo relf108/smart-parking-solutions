@@ -2,19 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:smart_parking_solutions/views/reserve_space.dart';
 import 'package:smart_parking_solutions/views/sign_in_view.dart';
-//import 'package:smart_parking_solutions/views/sign_in_view.dart';
 import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 import 'package:loading_animations/loading_animations.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
-import 'views/booking_conf.dart';
-// ignore: implementation_imports
-//import 'package:smart_parking_solutions_common/src/credentials.dart';
-
-const localhost = '192.168.1.111';
+const localhost = 'geekayk.ddns.net';
 var bookingdate = new DateTime.now();
 String duration = '1:30:00';
 
@@ -114,18 +108,12 @@ class _HomePageState extends State<HomePage> {
                 ),
               )
             ]),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Text('---Sign in with---')]),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: []),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Container(
                 height: (MediaQuery.of(context).size.height) / 50,
               )
             ]),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [Text('---Page Testing---')]),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Container(
                 height: (MediaQuery.of(context).size.height) / 50,
@@ -135,40 +123,15 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                    onPressed: () => { 
+                    onPressed: () => {
                           Navigator.push<MaterialPageRoute>(context,
                               MaterialPageRoute(builder: (context) {
                             return SignInView();
                           }))
                         },
-                    child: Text('Home')),
+                    child: Text('Sign in')),
                 ElevatedButton(
-                  onPressed: () => [
-                    Navigator.push<MaterialPageRoute>(context,
-                        MaterialPageRoute(builder: (context) {
-                      return ReserveSpaceView(
-                        jsonresponse:
-                            '{"numberOfSpaces":8,"bays":[{"distance":"1082","lat":"-37.80927403563136","long":"144.9740444973502","bayID":"5584","streetMarkerID":"12202N","description":{"description1":"2P MTR M-F 7:30-16:00","description2":"2P MTR SAT 7:30-12:30"}},{"distance":"529","lat":"-37.80793927082333","long":"144.96599596432765","bayID":"2749","streetMarkerID":"4580E","description":{"description1":"2P MTR M-SAT 7:30-20:30"}},{"distance":"589","lat":"-37.807708853788455","long":"144.96630832170874","bayID":"3408","streetMarkerID":"6257S","description":{"description1":"4P MTR M-SAT 7.30-8.30"}},{"distance":"578","lat":"-37.80774341058874","long":"144.9661907526817","bayID":"3414","streetMarkerID":"6263S","description":{"description1":"4P MTR M-SAT 7.30-8.30"}},{"distance":"593","lat":"-37.80740153209552","long":"144.96591541546846","bayID":"2753","streetMarkerID":"4592E","description":{"description1":"2P MTR M-SAT 7:30-20:30"}},{"distance":"587","lat":"-37.80745530729499","long":"144.9659084655904","bayID":"2752","streetMarkerID":"4590E","description":{"description1":"2P MTR M-SAT 7:30-20:30"}},{"distance":"592","lat":"-37.80760467000953","long":"144.9663048493107","bayID":"3405","streetMarkerID":"6254N","description":{"description1":"4P MTR M-SAT 7.30-8.30"}},{"distance":"599","lat":"-37.80758513511026","long":"144.96637132175528","bayID":"3403","streetMarkerID":"6252N","description":{"description1":"4P MTR M-SAT 7.30-8.30"}}]}',
-                        bookingdate: bookingdate,
-                        duration: duration,
-                      );
-                    }))
-                  ],
-                  child: Text('Reserve'),
-                ),
-                ElevatedButton(
-                    onPressed: () => {
-                          Navigator.push<MaterialPageRoute>(context,
-                              MaterialPageRoute(builder: (context) {
-                            return BookingConfView(
-                              streetMarkerID: '1773S',
-                              lat: '-37.816713050808474',
-                              long: '144.9662354050186',
-                              bookingdate: '2021-08-22 08:03:07Z',
-                            );
-                          }))
-                        },
-                    child: Text('Confirmation')),
+                    onPressed: () => {_launchURL()}, child: Text('Register')),
               ],
             ),
           ],

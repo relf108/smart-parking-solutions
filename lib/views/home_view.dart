@@ -3,12 +3,14 @@ import 'dart:io';
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:smart_parking_solutions/main.dart';
 import 'package:smart_parking_solutions/tmp/session_data.dart';
 import 'package:smart_parking_solutions/views/search_spaces.dart';
 import 'package:smart_parking_solutions/views/create_password_view.dart';
 import 'package:smart_parking_solutions_common/smart_parking_solutions_common.dart';
 
 ///EXAMPLE STATELESS WIDGET
+// ignore: must_be_immutable
 class HomeView extends StatefulWidget {
   HomeView(this.response);
   Response response;
@@ -18,10 +20,9 @@ class HomeView extends StatefulWidget {
 
 /// This is the private State class that goes with MyStatefulWidget.
 class _HomeView extends State<HomeView> {
-  final localhost = '192.168.1.111';
   _HomeView(this.initResponse);
   Response initResponse;
-  late TextEditingController _controller;
+  late TextEditingController _controller = TextEditingController();
   List<Booking> _bookings = [];
 
   void getCurrentBookings({Response? response}) {
@@ -146,8 +147,11 @@ class _HomeView extends State<HomeView> {
                       itemCount: _bookings.length,
                       itemBuilder: (context, index) {
                         return Card(
-                          color: Colors.red,
+                          color: spsblue,
                           child: ListTile(
+                            onTap: () async {
+                              cancelBooking(_bookings[index]);
+                            },
                             leading: Text(
                               _bookings[index]
                                   .bookedSpace
@@ -158,14 +162,13 @@ class _HomeView extends State<HomeView> {
                             title: Text(_bookings[index].startDate.toString(),
                                 style: TextStyle(color: Colors.white)),
                             subtitle: Text(
-                                //'Location: ${getStreetAddress(_bookings[index]['lat'], _bookings[index]['long'])}'
                                 'Location: ${_bookings[index].bookedSpace.location!.humanAddress}',
                                 style: TextStyle(color: Colors.white)),
                             trailing: InkWell(
                               onTap: () async {
                                 cancelBooking(_bookings[index]);
                               },
-                              child: Icon(Icons.arrow_forward),
+                              child: Icon(Icons.cancel),
                             ),
                           ),
                         );
@@ -186,7 +189,7 @@ class _HomeView extends State<HomeView> {
                         }))
                       },
                       child: Card(
-                        color: Colors.red,
+                        color: spsblue,
                         semanticContainer: true,
                         clipBehavior: Clip.antiAlias,
                         child: Image.asset(
@@ -205,11 +208,11 @@ class _HomeView extends State<HomeView> {
                       onTap: () => {
                         Navigator.push<MaterialPageRoute>(context,
                             MaterialPageRoute(builder: (context) {
-                          return CreatePasswordView("test@123.com");
+                          return CreatePasswordView();
                         }))
                       },
                       child: Card(
-                        color: Colors.red,
+                        color: spsblue,
                         semanticContainer: true,
                         clipBehavior: Clip.antiAlias,
                         child: Image.asset(

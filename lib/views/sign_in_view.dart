@@ -44,18 +44,18 @@ class _SignInViewState extends State<SignInView> {
                     decoration: const InputDecoration(labelText: 'Email'),
                     validator: (String? value) {
                       if (value!.isEmpty) {
-                        return 'Please enter some text';
+                        return 'Please enter your email';
                       }
                       return null;
                     },
                   ),
                   TextFormField(
                     controller: _passwordController,
-                    decoration: const InputDecoration(labelText: 'Password'),
+                    decoration: const InputDecoration(
+                        labelText: 'Password',
+                        hintText:
+                            'Leave blank if you haven\'t set your password'),
                     validator: (String? value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter some text';
-                      }
                       return null;
                     },
                     obscureText: true,
@@ -101,27 +101,37 @@ class _SignInViewState extends State<SignInView> {
     switch (loginStatus.statusCode) {
       case HttpStatus.ok:
         {
-          ///TODO test cast does not fail
           SessionData.currentUser =
               User.fromJson(json: jsonDecode(loginStatus.body));
           String urlstring = 'http://' + localhost + ':8888/currentBookings';
-          print(urlstring);
           final url = Uri.parse(urlstring);
-          Response response =
-              await post(url, headers: {'content-type':'application/json'}, body:  jsonEncode(SessionData.currentUser.toJson()));
+          Response response = await post(url,
+              headers: {'content-type': 'application/json'},
+              body: jsonEncode(SessionData.currentUser.toJson()));
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return HomeView(response);
           }));
         }
         break;
       case HttpStatus.unauthorized:
-        {}
+        {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: const Text('Sign in failed'),
+              content: Text(
+                  'If you\'ve just registered, you can set it by leaving the password field blank.'),
+            ),
+          );
+        }
         break;
       case HttpStatus.badRequest:
         {
+          SessionData.currentUser =
+              User.fromJson(json: jsonDecode(loginStatus.body));
           Navigator.push<MaterialPageRoute>(context,
               MaterialPageRoute(builder: (context) {
-            return CreatePasswordView(email);
+            return CreatePasswordView();
           }));
         }
         break;

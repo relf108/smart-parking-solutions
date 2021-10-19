@@ -1,4 +1,5 @@
 import 'package:http/http.dart';
+import 'package:smart_parking_solutions/main.dart';
 
 class SignInControllerRequestor {
   var email;
@@ -7,8 +8,9 @@ class SignInControllerRequestor {
 
   ///Return available spaces within distance around coordinates (JSON object)
   Future<Response> attemptLogin() async {
-    final uri = Uri.parse(
-        'http://192.168.1.111:8888/signInUser?email=$email&password=$password');
+    final uri = Uri.parse('http://' +
+        localhost +
+        ':8888/signInUser?email=$email&password=$password');
     //HttpClientResponse httpResult;
     final Response response = await get(uri);
     return response;

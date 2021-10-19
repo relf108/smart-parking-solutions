@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:smart_parking_solutions/backend_requests/rest_details.dart';
+import 'package:smart_parking_solutions/main.dart';
 
 class ParkingControllerRequestor {
   var lat;
@@ -14,7 +14,7 @@ class ParkingControllerRequestor {
     final client =
         HttpClient(); // Todo client intialization in class constructor or pass throught constructor
     final uri = Uri.parse(
-        "${RestDetails.host}/parking?lat= $lat &long= $long &distance=$distance");
+        "http://" + localhost + "/parking?lat= $lat &long= $long &distance=$distance");
     //HttpClientResponse httpResult;
     final HttpClientRequest req = await client.getUrl(uri);
     final response = (await req.close()).transform(const Utf8Decoder());

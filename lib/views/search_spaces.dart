@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dimension_ratios/screen_ratio_generator.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_parking_solutions/views/102063393.dart';
+import 'package:smart_parking_solutions/views/reserve_space.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart';
 import '../main.dart';
@@ -300,7 +300,7 @@ class _SearchSpacesView extends State<SearchSpacesView> {
                                         percent: 90),
                                     child: Column(children: <Widget>[
                                       DropdownButtonFormField<String>(
-                                          style: TextStyle(color: Colors.black),
+                                          style: TextStyle(color: Colors.white),
                                           value: _duration.toString(),
                                           items: [
                                             Duration(minutes: 30).toString(),
@@ -344,7 +344,7 @@ class _SearchSpacesView extends State<SearchSpacesView> {
                                         percent: 90),
                                     child: Column(children: <Widget>[
                                       DropdownButtonFormField<int>(
-                                          style: TextStyle(color: Colors.black),
+                                          style: TextStyle(color: Colors.white),
                                           value: _radius,
                                           items: [100, 200, 500, 1000, 2000]
                                               .map((label) => DropdownMenuItem(
